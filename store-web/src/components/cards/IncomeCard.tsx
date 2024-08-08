@@ -1,6 +1,8 @@
+import { cn } from '@/lib/utils'
+
 interface IncomeProps {
   label: string
-  variant: "primary" | "secondary"
+  variant: "primary" | "secondary" | "info"
   income: {
     date: Date
     totalIncome: number
@@ -15,10 +17,21 @@ const IncomeCard: React.FC<IncomeProps> = ({
   income
 }) => {
   const { date, totalIncome, totalTranscation } = income
-  const bgColor = variant === "primary" ? "bg-yellow-300" : "bg-green-500"
 
   return (
-    <div className={`px-2 py-3 ${bgColor} rounded-md mb-2`}>
+    <div
+      className={cn(
+        'px-2 py-3 mb-2',
+        'rounded-md',
+        [
+          variant === 'primary' && [
+            "bg-yellow-300"
+          ],
+          variant === "secondary" && [
+            "bg-green-500"
+          ],
+        ]
+      )}>
       <div className='font-semibold text-sm'>{label}</div>
       <div className='flex justify-between leading-3'>
         <div>
