@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import BottomNavigation from '@/components/nav/BottomNavigation'
 
 export default function DashboardLayout({
   children,
@@ -6,17 +6,12 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <section className='relative'>
-      {children}
+    <section>
+      <main className='m-4'>
+        {children}
+      </main>
 
-      <div className='fixed bottom-0 w-full'>
-        <nav className='bg-gray-50 shadow-sm flex justify-evenly py-3'>
-          <Link href="/dashboard/home">Dashboard</Link>
-          <Link href="/dashboard/home/store">Store</Link>
-          <Link href="/dashboard/home/transactions">Transaction</Link>
-          <Link href="/dashboard/home/settlement">Settlement</Link>
-        </nav>
-      </div>
+      <BottomNavigation />
     </section>
   )
 }
