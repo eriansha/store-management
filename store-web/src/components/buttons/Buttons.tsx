@@ -29,7 +29,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type='button'
         disabled={disabled}
-        className={`py-2 bg-green-600 ${borderRadius} text-white`}
+        className={`w-full py-2 bg-green-600 text-white ${borderRadius} ${className}`}
         aria-label={ariaLabel}
         {...props}
       >

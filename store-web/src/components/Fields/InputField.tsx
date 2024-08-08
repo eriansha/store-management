@@ -21,7 +21,7 @@ const InputField = forwardRef<HTMLInputElement, ButtonProps>(
     const inputId = useId()
 
     return (
-      <div className='flex flex-col'>
+      <div className='flex flex-col mb-4 text-sm'>
         {
           label && (
             <label
@@ -36,7 +36,7 @@ const InputField = forwardRef<HTMLInputElement, ButtonProps>(
           <input
             id={inputId}
             ref={ref}
-            className='py-4 px-2'
+            className='w-full py-4 px-2'
             placeholder={placeholder}
             {...props}
           />
