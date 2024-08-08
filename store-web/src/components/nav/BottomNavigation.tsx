@@ -19,7 +19,7 @@ const navs = [
     Icon: PresentationChartLineIcon
   },
   {
-    href: "/dashboard/home/settlement",
+    href: "/dashboard/home/settlements",
     Icon: WalletIcon
   },
   {
