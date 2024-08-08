@@ -11,7 +11,7 @@ const navs = [
     Icon: HomeIcon
   },
   {
-    href: "/dashboard/home/store",
+    href: "/dashboard/home/stores",
     Icon: BuildingStorefrontIcon
   },
   {
