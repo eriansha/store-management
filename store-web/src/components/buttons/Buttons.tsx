@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 
 type ButtonProps = {
-  className: string,
+  className?: string,
   isLoading?: boolean,
   disabled?: boolean,
   pill?: boolean,
