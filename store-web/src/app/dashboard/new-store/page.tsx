@@ -1,22 +1,9 @@
-"use client"
-
 import Button from '@/components/buttons/Button'
 import InputField from '@/components/fields/InputField'
-import { useRouter } from 'next/navigation'
 
 export default function NewStorePage() {
-  const router = useRouter()
-
   return (
     <main>
-      <div className='flex gap-3 justify-start items-center shadow-md w-full py-4 px-3 mb-3'>
-        <button onClick={() => router.back()}>
-          {"<"}
-        </button>
-
-        <h2 className='font-semibold'>Add New Store</h2>
-      </div>
-
       <InputField
         label="Official Company Name"
         placeholder='Please input Official Company Name'
