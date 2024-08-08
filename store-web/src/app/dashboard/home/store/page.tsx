@@ -1,6 +1,8 @@
 'use client';
 
 import Button from '@/components/buttons/Buttons'
+import SearchField from '@/components/Fields/SearchField'
+import StoreItem from '@/components/items/StoreItem'
 import { useRouter } from 'next/navigation'
 
 export default function StorePage() {
@@ -13,15 +15,7 @@ export default function StorePage() {
   return (
     <main>
       <div className='flex gap-x-2 mb-6'>
-        <div className='w-full bg-gray-50 px-3 py-3 border border-color-gray-300 rounded-md'>
-          {/* TODO: icon search */}
-
-          <input
-            className='w-full bg-gray-50'
-            type="search"
-            placeholder='Cari nama toko'
-          />
-        </div>
+        <SearchField placeholder='Cari nama toko' />
 
         <Button
           className='flex-initial w-32'
@@ -51,32 +45,9 @@ export default function StorePage() {
 
       <h2 className='font-medium my-6'>Store List</h2>
 
-      <div className='flex gap-3 border border-color-gray-300 rounded-md p-4 mb-3'>
-        <div className='w-10 h-10 bg-gray-300' />
-
-        <div>
-          <div className='text-sm'>SIT</div>
-          <div className='text-xs font-light'>Submission Verification Process</div>
-        </div>
-      </div>
-
-      <div className='flex gap-3 border border-color-gray-300 rounded-md p-4 mb-3'>
-        <div className='w-10 h-10 bg-gray-300' />
-
-        <div>
-          <div className='text-sm'>SIT</div>
-          <div className='text-xs font-light'>Submission Verification Process</div>
-        </div>
-      </div>
-
-      <div className='flex gap-3 border border-color-gray-300 rounded-md p-4 mb-3'>
-        <div className='w-10 h-10 bg-gray-300' />
-
-        <div>
-          <div className='text-sm'>SIT</div>
-          <div className='text-xs font-light'>Submission Verification Process</div>
-        </div>
-      </div>
+      <StoreItem store={{ name: "SIT"}} />
+      <StoreItem store={{ name: "SIT"}} />
+      <StoreItem store={{ name: "SIT"}} />
     </main>
   )
 }
