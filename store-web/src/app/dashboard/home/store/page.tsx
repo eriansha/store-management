@@ -14,12 +14,10 @@ export default function StorePage() {
 
   return (
     <main>
-      <div className='flex gap-x-2 mb-6'>
+      <div className='flex gap-x-4 mb-6'>
         <SearchField placeholder='Cari nama toko' />
 
-        <Button
-          className='flex-initial w-32'
-        >
+        <Button className='flex-none w-24'>
           Search
         </Button>
       </div>

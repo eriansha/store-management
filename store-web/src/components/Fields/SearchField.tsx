@@ -1,3 +1,4 @@
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 import { forwardRef } from 'react'
 
 interface SearchFieldProps extends React.ComponentPropsWithRef<'input'> {
@@ -14,16 +15,16 @@ const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
     ref
   ) => {
     return (
-      <div className='w-full bg-gray-50 px-3 py-3 border border-color-gray-300 rounded-md'>
-      {/* TODO: icon search */}
+      <div className='flex gap-3 w-full bg-gray-50 px-3 py-3 border border-color-gray-300 rounded-md'>
+        <MagnifyingGlassIcon className='size-6 text-gray-300' />
 
-      <input
-        ref={ref}
-        className='w-full bg-gray-50'
-        type="search"
-        {...props}
-      />
-    </div>
+        <input
+          ref={ref}
+          className='w-full bg-gray-50 outline-none'
+          type="search"
+          {...props}
+        />
+      </div>
     );
   }
 );
