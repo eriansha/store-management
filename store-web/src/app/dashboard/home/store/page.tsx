@@ -7,7 +7,7 @@ export default function StorePage() {
   const router = useRouter()
 
   const handleClickStore = () => {
-    router.push("/dashboard/store/new")
+    router.push("/dashboard/new-store")
   }
 
   return (
