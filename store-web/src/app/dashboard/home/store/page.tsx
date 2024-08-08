@@ -43,11 +43,17 @@ export default function StorePage() {
         </Button>
       </div>
 
-      <h2 className='font-medium my-6'>Store List</h2>
+      <div className='mb-16'>
+        <h2 className='font-medium my-6'>Store List</h2>
 
-      <StoreItem store={{ name: "SIT"}} />
-      <StoreItem store={{ name: "SIT"}} />
-      <StoreItem store={{ name: "SIT"}} />
+        <StoreItem store={{ name: "SIT"}} />
+        <StoreItem store={{ name: "SIT"}} />
+        <StoreItem store={{ name: "SIT"}} />
+        <StoreItem store={{ name: "SIT"}} />
+        <StoreItem store={{ name: "SIT"}} />
+        <StoreItem store={{ name: "SIT"}} />
+        <StoreItem store={{ name: "SIT"}} />
+      </div>
     </main>
   )
 }
