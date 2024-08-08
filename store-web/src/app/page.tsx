@@ -1,5 +1,5 @@
-import Button from '@/components/buttons/Buttons'
-import InputField from '@/components/Fields/InputField'
+import Button from '@/components/buttons/Button'
+import InputField from '@/components/fields/InputField'
 
 export default function Home() {
   return (

@@ -1,7 +1,7 @@
 'use client';
 
-import Button from '@/components/buttons/Buttons'
-import SearchField from '@/components/Fields/SearchField'
+import Button from '@/components/buttons/Button'
+import SearchField from '@/components/fields/SearchField'
 import StoreItem from '@/components/items/StoreItem'
 import { useRouter } from 'next/navigation'
 

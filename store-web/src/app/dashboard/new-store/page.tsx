@@ -1,7 +1,7 @@
 "use client"
 
-import Button from '@/components/buttons/Buttons'
-import InputField from '@/components/Fields/InputField'
+import Button from '@/components/buttons/Button'
+import InputField from '@/components/fields/InputField'
 import { useRouter } from 'next/navigation'
 
 export default function NewStorePage() {
