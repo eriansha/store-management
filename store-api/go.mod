@@ -1,4 +1,4 @@
-module store-service
+module store-api
 
 go 1.22.3
 
