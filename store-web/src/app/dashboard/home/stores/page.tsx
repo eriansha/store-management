@@ -12,14 +12,17 @@ export default function StorePage() {
     router.push("/dashboard/new-store")
   }
 
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value)
+  }
+
   return (
     <main>
       <div className='flex gap-x-4 mb-6'>
-        <SearchField placeholder='Cari nama toko' />
-
-        <Button className='flex-none w-24'>
-          Search
-        </Button>
+        <SearchField
+          placeholder='Cari nama toko'
+          onChange={handleOnChange}
+        />
       </div>
 
       <div className='bg-sky-50 rounded-md p-4'>
