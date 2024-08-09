@@ -18,7 +18,8 @@ import (
 
 // EnvConfig is a singleton struct that holds environment variables
 type EnvConfig struct {
-	JWTKey string
+	JWTKey    string
+	CORSDebug string
 	// TODO: Add other environment variables here as needed
 }
 
@@ -46,6 +47,7 @@ func (c *EnvConfig) loadEnv() {
 	}
 
 	c.JWTKey = getEnvOrPanic("JWT_SECRET_KEY")
+	c.CORSDebug = getEnvOrPanic("CORS_DEBUG")
 	// TODO: Load other environment variables here
 }
 

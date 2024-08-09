@@ -6,6 +6,7 @@ import (
 	"store-api/handlers/store"
 	"store-api/handlers/transaction"
 	"store-api/handlers/user"
+	"store-api/utils"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
@@ -14,6 +15,7 @@ import (
 
 func main() {
 	r := mux.NewRouter()
+	CORSDebugVar := utils.GetEnvConfig().CORSDebug
 
 	// define HTTP routes using the router
 	r.HandleFunc("/api/login", user.LoginHandler).Methods("POST")
@@ -27,7 +29,7 @@ func main() {
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Content-Type", "X-Requested-With", "Accept", "Origin", "Authorization"},
 		AllowCredentials: true,
-		Debug:            true,
+		Debug:            CORSDebugVar == "true" || CORSDebugVar == "1",
 	})
 
 	// Wrap the router with the CORS middleware
