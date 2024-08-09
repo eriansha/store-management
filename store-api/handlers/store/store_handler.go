@@ -28,7 +28,8 @@ func GetStoresHandler(w http.ResponseWriter, r *http.Request) {
 
 	// TODO: change hardcoded merchant ID from JWT
 
-	stores, err := repo.GetStores(1)
+	searchParam := r.URL.Query().Get("search")
+	stores, err := repo.GetStores(1, searchParam)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

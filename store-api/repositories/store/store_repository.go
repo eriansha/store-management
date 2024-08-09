@@ -12,12 +12,25 @@ func NewStoreRepository(db *sql.DB) *StoreRepository {
 	return &StoreRepository{db: db}
 }
 
-func (r *StoreRepository) GetStores(merchantID int64) ([]Store, error) {
+func (r *StoreRepository) GetStores(merchantID int64, searchParam string) ([]Store, error) {
 	var rows *sql.Rows
 	var err error
 
-	query := "SELECT id, official_company_name, brand_name, store_scale, store_category FROM stores WHERE merchant_id = ?"
-	rows, err = r.db.Query(query, merchantID)
+	if searchParam != "" {
+		query := `SELECT
+			id,
+			official_company_name,
+			brand_name,
+			store_scale,
+			store_category
+			FROM stores
+			WHERE merchant_id = ? AND
+			official_company_name LIKE ?`
+		rows, err = r.db.Query(query, merchantID, "%"+searchParam+"%")
+	} else {
+		query := "SELECT id, official_company_name, brand_name, store_scale, store_category FROM stores WHERE merchant_id = ?"
+		rows, err = r.db.Query(query, merchantID)
+	}
 
 	if err != nil {
 		return nil, err
