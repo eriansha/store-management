@@ -4,7 +4,7 @@ interface IncomeProps {
   label: string
   variant: "primary" | "secondary" | "info"
   income: {
-    date: Date
+    date: string
     totalIncome: number
     totalTranscation: number
   }
@@ -35,7 +35,7 @@ const IncomeCard: React.FC<IncomeProps> = ({
       <div className='font-semibold text-sm'>{label}</div>
       <div className='flex justify-between leading-3'>
         <div>
-          <div className='text-xs text-gray-600 pb-4'>{date.toString()}</div>
+          <div className='text-xs text-gray-600 pb-4'>{date}</div>
           <h2 className='font-semibold'>{totalIncome}</h2>
         </div>
 
