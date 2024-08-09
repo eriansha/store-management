@@ -1,3 +1,5 @@
+"use client"
+
 import Button from '@/components/buttons/Button'
 import InputField from '@/components/fields/InputField'
 import PasswordField from '@/components/fields/PasswordField'
