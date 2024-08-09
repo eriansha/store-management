@@ -44,3 +44,22 @@ func (r *StoreRepository) GetStores(merchantID int64) ([]Store, error) {
 
 	return stores, nil
 }
+
+func (r *StoreRepository) Add(merchantID int64, companyName, brand_name, scale, category string) error {
+	var rows *sql.Rows
+	var err error
+
+	query := `INSERT INTO
+		stores(merchant_id, official_company_name, brand_name, store_scale, store_category)
+		values (?, ?, ?, ?, ?)`
+
+	rows, err = r.db.Query(query, merchantID, companyName, brand_name, scale, category)
+
+	if err != nil {
+		return err
+	}
+
+	defer rows.Close()
+
+	return nil
+}
