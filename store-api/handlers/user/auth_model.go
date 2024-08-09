@@ -4,7 +4,7 @@ import (
 	"store-api/repositories/merchant"
 	"store-api/repositories/user"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 )
 
 type UserRequest struct {

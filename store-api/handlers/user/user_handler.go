@@ -9,7 +9,7 @@ import (
 	"store-api/utils"
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -69,6 +69,8 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		Username: user.Email,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
+			IssuedAt:  time.Now().Unix(),
+			Issuer:    "store-management",
 		},
 	}
 
