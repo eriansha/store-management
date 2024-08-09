@@ -52,7 +52,7 @@ VALUES (
   'HARMON-0001',
   'John Doe',
   'john.doe@example.com',
-  'hashed_password',
+  '$2a$10$qGgXS35P12uHnJSKurk1YuYF2BUqReWU6ske7YaE86vEI7b9fA.5S',
   NOW()
 );
 
@@ -62,4 +62,4 @@ VALUES
 (1, 'Harmoni Nusantara Store 1', 'Harmoni Brand 1', 'small', 'veterinary_services'),
 (1, 'Harmoni Nusantara Store 2', 'Harmoni Brand 2', 'medium', 'agricultural_cooperative'),
 (1, 'Harmoni Nusantara Store 3', 'Harmoni Brand 3', 'medium_large', 'landscaping_horticultural_services'),
-(1, 'Harmoni Nusantara Store 4', 'Harmoni Brand 4', 'large', 'general_constructors');
+(1, 'Harmoni Nusantara Store 4', 'Harmoni Brand 4', 'large', 'general_constractors');
