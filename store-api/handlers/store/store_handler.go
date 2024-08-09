@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"store-api/repositories/store"
+	storeRepo "store-api/repositories/store"
 )
 
 const (
@@ -14,7 +15,7 @@ const (
 	dbName   = "store_management"
 )
 
-var storeRepo *store.StoreRepository
+var repo *storeRepo.StoreRepository
 
 func GetStoresHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO: create db abstraction
@@ -23,11 +24,11 @@ func GetStoresHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err.Error())
 	}
 
-	storeRepo = store.NewStoreRepository(db)
+	repo = storeRepo.NewStoreRepository(db)
 
 	// TODO: change hardcoded merchant ID from JWT
 
-	stores, err := storeRepo.GetStores(1)
+	stores, err := repo.GetStores(1)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -35,4 +36,29 @@ func GetStoresHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(stores)
+}
+
+func AddStoreHandler(w http.ResponseWriter, r *http.Request) {
+	// TODO: create db abstraction
+	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	defer db.Close()
+
+	// Parse JSON data from the request body
+	var store store.Store
+	json.NewDecoder(r.Body).Decode(&store)
+
+	repo = storeRepo.NewStoreRepository(db)
+
+	// TODO: change hardcoded merchant ID from JWT
+	err = repo.Add(1, store.CompanyName, store.BrandName, store.Scale, store.Category)
+	if err != nil {
+		http.Error(w, "Failed to create user", http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
 }

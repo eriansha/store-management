@@ -16,6 +16,7 @@ func main() {
 	// define HTTP routes using the router
 	r.HandleFunc("/api/transaction-info", transaction.GetInfoHandler).Methods("GET")
 	r.HandleFunc("/api/stores", store.GetStoresHandler).Methods("GET")
+	r.HandleFunc("/api/stores", store.AddStoreHandler).Methods("POST")
 
 	log.Println("Server listening on :8090")
 	log.Fatal(http.ListenAndServe(":8090", r))
