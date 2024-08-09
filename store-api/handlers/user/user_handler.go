@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"net/http"
 	userRepo "store-api/repositories/user"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 const (
@@ -29,15 +31,21 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	var userRequest UserRequest
 	json.NewDecoder(r.Body).Decode(&userRequest)
 
+	repo = userRepo.NewUserRepository(db)
+	user, err := repo.GetUser(userRequest.Email)
 	if err != nil {
-		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		if err == sql.ErrNoRows {
+			http.Error(w, "Invalid credentials", http.StatusUnauthorized)
+		} else {
+			http.Error(w, "Internal server error", http.StatusInternalServerError)
+		}
 		return
 	}
 
-	repo = userRepo.NewUserRepository(db)
-	user, err := repo.Authenticate(userRequest.Email, userRequest.Password)
-	if err != nil {
-		http.Error(w, "Invalid account ID or password", http.StatusBadRequest)
+	if err := bcrypt.CompareHashAndPassword(
+		[]byte(user.PasswordDigest),
+		[]byte(userRequest.Password)); err != nil {
+		http.Error(w, "Invalid credentials", http.StatusUnauthorized)
 		return
 	}
 
