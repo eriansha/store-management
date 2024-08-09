@@ -53,7 +53,7 @@ const FIELD_NAME = {
 }
 
 export default function NewStorePage() {
-  const [termAccpeted, setTermAccepted] = useState("false")
+  const [termAccpeted, setTermAccepted] = useState(false)
 
   const { register, handleSubmit, control, watch, formState: { errors, isValid } } = useForm({
     mode: 'all'
@@ -62,7 +62,7 @@ export default function NewStorePage() {
   const handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event?.target.checked
 
-    setTermAccepted(value.toString())
+    setTermAccepted(value)
   }
 
   const onSubmit = (data: any) => {
@@ -152,7 +152,7 @@ export default function NewStorePage() {
           <label>
             <input
               type="checkbox"
-              value={termAccpeted}
+              value={termAccpeted.toString()}
               onChange={handleChecked}
             />
             {" "}
@@ -164,7 +164,7 @@ export default function NewStorePage() {
           pill
           className='mb-4'
           type="submit"
-          disabled={!(isValid && termAccpeted)}
+          disabled={!(isValid && Boolean(termAccpeted))}
         >
           {"Submit"}
         </Button>
