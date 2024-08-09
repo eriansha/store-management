@@ -1,9 +1,12 @@
 import IncomeCard from '@/components/cards/IncomeCard'
-import { fetchTransactionInfo } from '@/services/transaction-api'
+import { fetcher } from '@/lib/utils'
 import { TransactionInfoResponse } from '@/types/transaction'
 
 export default async function DashboardPage() {
-  const transactionData: TransactionInfoResponse = await fetchTransactionInfo()
+  const transactionData: TransactionInfoResponse = await fetcher(
+    `${process.env.NEXT_PUBLIC_STORE_API_BASE_URL}/transaction-info`,
+    { cache: 'no-store' }
+  )
 
   return (
     <main>
