@@ -8,13 +8,15 @@ import useSWR from 'swr'
 import StoreList from './StoreList'
 import { Store } from '@/types/store'
 import { fetcher } from '@/lib/utils'
+import useDebounce from '@/hooks/UseDebounce'
 
 
 export default function StorePage() {
   const [query, setQuery] = useState('')
   const router = useRouter()
+  const debouncedQuery = useDebounce(query, 300)
 
-  const apiURL = `${process.env.NEXT_PUBLIC_STORE_API_BASE_URL}/stores?search=${encodeURIComponent(query)}`
+  const apiURL = `${process.env.NEXT_PUBLIC_STORE_API_BASE_URL}/stores?search=${encodeURIComponent(debouncedQuery)}`
   const { data, isLoading } = useSWR<Store[]>(apiURL, fetcher);
 
   const handleClickStore = () => {
@@ -22,7 +24,6 @@ export default function StorePage() {
   }
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // TODO: implement debounce
     setQuery(event.target.value)
   }
 
