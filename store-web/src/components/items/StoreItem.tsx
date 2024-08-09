@@ -1,7 +1,7 @@
+import { Store } from '@/types/store'
+
 interface StoreItemProps {
-  store: {
-    name: string
-  }
+  store: Store
 }
 
 
@@ -13,7 +13,7 @@ const StoreItem: React.FC<StoreItemProps> = ({
       <div className='w-10 h-10 bg-gray-300' />
 
       <div>
-        <div className='text-sm'>{store.name}</div>
+        <div className='text-sm'>{store.official_company_name}</div>
         <div className='text-xs font-light'>Submission Verification Process</div>
       </div>
     </div>

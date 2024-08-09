@@ -2,18 +2,28 @@
 
 import Button from '@/components/buttons/Button'
 import SearchField from '@/components/fields/SearchField'
-import StoreItem from '@/components/items/StoreItem'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import useSWR from 'swr'
+import StoreList from './StoreList'
+import { Store } from '@/types/store'
+import { fetcher } from '@/lib/utils'
+
 
 export default function StorePage() {
+  const [query, setQuery] = useState('')
   const router = useRouter()
+
+  const apiURL = `${process.env.NEXT_PUBLIC_STORE_API_BASE_URL}/stores?search=${encodeURIComponent(query)}`
+  const { data, isLoading } = useSWR<Store[]>(apiURL, fetcher);
 
   const handleClickStore = () => {
     router.push("/dashboard/new-store")
   }
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value)
+    // TODO: implement debounce
+    setQuery(event.target.value)
   }
 
   return (
@@ -47,13 +57,10 @@ export default function StorePage() {
       <div className='mb-16'>
         <h2 className='font-medium my-6'>Store List</h2>
 
-        <StoreItem store={{ name: "SIT"}} />
-        <StoreItem store={{ name: "SIT"}} />
-        <StoreItem store={{ name: "SIT"}} />
-        <StoreItem store={{ name: "SIT"}} />
-        <StoreItem store={{ name: "SIT"}} />
-        <StoreItem store={{ name: "SIT"}} />
-        <StoreItem store={{ name: "SIT"}} />
+        <StoreList
+          isLoading={isLoading}
+          stores={data || []}
+        />
       </div>
     </main>
   )
