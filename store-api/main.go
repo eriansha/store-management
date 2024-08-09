@@ -6,10 +6,10 @@ import (
 	"store-api/handlers/store"
 	"store-api/handlers/transaction"
 	"store-api/handlers/user"
-	"store-api/middleware"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -21,9 +21,18 @@ func main() {
 	r.HandleFunc("/api/stores", store.GetStoresHandler).Methods("GET")
 	r.HandleFunc("/api/stores", store.AddStoreHandler).Methods("POST")
 
-	// Apply the CORS middleware to all routes
-	r.Use(middleware.Cors)
+	// CORS middleware
+	corsMiddleware := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:3000"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Content-Type", "X-Requested-With", "Accept", "Origin", "Authorization"},
+		AllowCredentials: true,
+		Debug:            true,
+	})
+
+	// Wrap the router with the CORS middleware
+	handler := corsMiddleware.Handler(r)
 
 	log.Println("Server listening on :8090")
-	log.Fatal(http.ListenAndServe(":8090", r))
+	log.Fatal(http.ListenAndServe(":8090", handler))
 }
