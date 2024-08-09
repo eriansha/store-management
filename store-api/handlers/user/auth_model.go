@@ -13,6 +13,7 @@ type UserRequest struct {
 }
 
 type Claims struct {
+	ID       int64  `json:"user_id"`
 	Username string `json:"username"`
 	jwt.StandardClaims
 }

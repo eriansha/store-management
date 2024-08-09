@@ -67,6 +67,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	expirationTime := time.Now().Add(15 * time.Minute)
 	claims := &Claims{
 		Username: user.Email,
+		ID:       user.ID,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
 			IssuedAt:  time.Now().Unix(),
