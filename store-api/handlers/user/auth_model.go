@@ -1,5 +1,3 @@
-// TODO: rename to auth_model
-
 package user
 
 import (
