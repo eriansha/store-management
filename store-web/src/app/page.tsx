@@ -1,5 +1,6 @@
 import Button from '@/components/buttons/Button'
 import InputField from '@/components/fields/InputField'
+import PasswordField from '@/components/fields/PasswordField'
 
 export default function Home() {
   return (
@@ -8,12 +9,13 @@ export default function Home() {
       <div className="w-full max-w-md px-8 pt-6 pb-8 mb-4 bg-white shadow-sm border border-color-slate-100 rounded-lg">
         <h5 className="mb-6 font-bold">Welcome Back</h5>
 
+        {/* TODO: use form */}
         <InputField
           label='Account ID'
           placeholder={"Enter your account ID"}
         />
 
-        <InputField
+        <PasswordField
           label='Password'
           placeholder={"Enter your Password"}
         />
