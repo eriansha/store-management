@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import { forwardRef } from 'react'
 
 type ButtonProps = {
@@ -29,7 +30,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type='button'
         disabled={disabled}
-        className={`w-full py-2 bg-green-600 text-white ${borderRadius} ${className}`}
+        className={cn(
+          `w-full py-2 bg-green-600 text-white ${borderRadius} ${className}`,
+          [
+            disabled && [
+              'bg-gray-300'
+            ]
+          ]
+        )}
         aria-label={ariaLabel}
         {...props}
       >
