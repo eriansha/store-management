@@ -4,8 +4,12 @@ import (
 	"database/sql"
 	"encoding/json"
 	"net/http"
+	merchantRepo "store-api/repositories/merchant"
 	userRepo "store-api/repositories/user"
+	"store-api/utils"
+	"time"
 
+	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -17,6 +21,7 @@ const (
 )
 
 var repo *userRepo.UserRepository
+var mRepo *merchantRepo.MerchantRepository
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO: create db abstraction
@@ -32,6 +37,8 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(r.Body).Decode(&userRequest)
 
 	repo = userRepo.NewUserRepository(db)
+	mRepo = merchantRepo.NewMerchantRepository(db)
+
 	user, err := repo.GetUser(userRequest.Email)
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -49,6 +56,37 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	merchant, err := mRepo.GetMerchant(user.ID)
+
+	if err != nil {
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	// Create token
+	expirationTime := time.Now().Add(15 * time.Minute)
+	claims := &Claims{
+		Username: user.Email,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: expirationTime.Unix(),
+		},
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	jwtKey := []byte(utils.GetEnvConfig().JWTKey)
+	tokenString, err := token.SignedString(jwtKey)
+	if err != nil {
+		http.Error(w, "Could not generate token", http.StatusInternalServerError)
+		return
+	}
+
+	response := LoginResponse{
+		AccessToken: tokenString,
+		User:        *user,
+		Merchant:    *merchant,
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(user)
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(response)
 }
