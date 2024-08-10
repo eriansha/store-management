@@ -3,7 +3,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/provider/AuthProvider'
-import LanguageSwitcher from '@/components/fields/LanguageSwitcher'
 
 
 /**
@@ -25,11 +24,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   if (token) {
     return (
       <>
-        <div className='sticky top-0 flex gap-3 justify-start justify-between shadow-sm w-full py-4 px-4 mb-4 lg:mb-10'>
-          <h2 className='font-bold text-violet-600'>Store Dashboard</h2>
-          <LanguageSwitcher/>
-        </div>
-
         {children}
       </>
     )
