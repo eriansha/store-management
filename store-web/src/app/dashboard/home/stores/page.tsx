@@ -51,7 +51,7 @@ export default function StorePage() {
         />
       </div>
 
-      <div className='mb-16'>
+      <div className='mb-32'>
         <div className='flex justify-between items-center'>
           <h2 className='font-medium my-6'>{t("STORE_LIST")}</h2>
 
