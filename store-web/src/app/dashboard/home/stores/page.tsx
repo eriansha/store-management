@@ -3,21 +3,34 @@
 import Button from '@/components/buttons/Button'
 import SearchField from '@/components/fields/SearchField'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import useSWR from 'swr'
+import { useEffect, useState } from 'react'
 import StoreList from './StoreList'
 import { Store } from '@/types/store'
-import { fetcher } from '@/lib/utils'
 import useDebounce from '@/hooks/UseDebounce'
+import axios from 'axios'
+import { useAuth } from '@/provider/AuthProvider'
 
 
 export default function StorePage() {
+  const { token } = useAuth()
   const [query, setQuery] = useState('')
   const router = useRouter()
   const debouncedQuery = useDebounce(query, 300)
+  const [stores, setStores] = useState<Store[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
-  const apiURL = `${process.env.NEXT_PUBLIC_STORE_API_BASE_URL}/stores?search=${encodeURIComponent(debouncedQuery)}`
-  const { data, isLoading } = useSWR<Store[]>(apiURL, fetcher);
+  useEffect(() => {
+    setIsLoading(true)
+    axios.get(`${process.env.NEXT_PUBLIC_STORE_API_BASE_URL}/stores?search=${encodeURIComponent(debouncedQuery)}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    }).then((response) => {
+      const data = response.data
+      setStores(data)
+    })
+    .finally(() => setIsLoading(false))
+  }, [debouncedQuery, token])
 
   const handleClickStore = () => {
     router.push("/dashboard/new-store")
@@ -60,7 +73,7 @@ export default function StorePage() {
 
         <StoreList
           isLoading={isLoading}
-          stores={data || []}
+          stores={stores || []}
         />
       </div>
     </main>
