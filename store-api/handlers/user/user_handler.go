@@ -3,7 +3,9 @@ package user
 import (
 	"database/sql"
 	"encoding/json"
+	"errors"
 	"net/http"
+	"store-api/common"
 	merchantRepo "store-api/repositories/merchant"
 	userRepo "store-api/repositories/user"
 	"store-api/utils"
@@ -34,32 +36,30 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Parse JSON data from the request data
 	var userRequest UserRequest
-	json.NewDecoder(r.Body).Decode(&userRequest)
-
-	repo = userRepo.NewUserRepository(db)
-	mRepo = merchantRepo.NewMerchantRepository(db)
-
-	user, err := repo.GetUser(userRequest.Email)
-	if err != nil {
-		if err == sql.ErrNoRows {
-			http.Error(w, "Invalid credentials", http.StatusUnauthorized)
-		} else {
-			http.Error(w, "Internal server error", http.StatusInternalServerError)
-		}
+	if err := json.NewDecoder(r.Body).Decode(&userRequest); err != nil {
+		customErr := common.NewCustomError("Invalid request body", http.StatusBadRequest, err.Error())
+		common.SendErrorResponse(w, customErr)
 		return
 	}
 
-	if err := bcrypt.CompareHashAndPassword(
-		[]byte(user.PasswordDigest),
-		[]byte(userRequest.Password)); err != nil {
-		http.Error(w, "Invalid credentials", http.StatusUnauthorized)
+	repo = userRepo.NewUserRepository(db)
+	mRepo = merchantRepo.NewMerchantRepository(db)
+	var user *userRepo.User
+
+	user, err = validateLogin(userRequest.Email, userRequest.Password)
+	if err != nil {
+		customErr, ok := err.(*common.CustomError)
+		if !ok {
+			customErr = common.NewCustomError("Internal server error", http.StatusInternalServerError, err.Error())
+		}
+		common.SendErrorResponse(w, customErr)
 		return
 	}
 
 	merchant, err := mRepo.GetMerchant(user.ID)
-
 	if err != nil {
-		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		customErr := common.NewCustomError("Internal server error", http.StatusInternalServerError, "Merchant is not identified")
+		common.SendErrorResponse(w, customErr)
 		return
 	}
 
@@ -80,7 +80,8 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	jwtKey := []byte(utils.GetEnvConfig().JWTKey)
 	tokenString, err := token.SignedString(jwtKey)
 	if err != nil {
-		http.Error(w, "Could not generate token", http.StatusInternalServerError)
+		customErr := common.NewCustomError("Internal server error", http.StatusInternalServerError, err.Error())
+		common.SendErrorResponse(w, customErr)
 		return
 	}
 
@@ -93,4 +94,33 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
+}
+
+// validateLogin checks if the username and password are valid
+func validateLogin(email string, password string) (*userRepo.User, error) {
+	storedUser, err := repo.GetUser(email)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, common.NewCustomError(
+				"Invalid username or password",
+				http.StatusUnauthorized,
+				"Invalid username or password",
+			)
+		} else {
+			return nil, errors.New("something wrong when login")
+		}
+	}
+
+	// Compare the provided password with the stored hash
+	if err := bcrypt.CompareHashAndPassword(
+		[]byte(storedUser.PasswordDigest),
+		[]byte(password)); err != nil {
+		return nil, common.NewCustomError(
+			"Invalid username or password",
+			http.StatusUnauthorized,
+			"Invalid username or password",
+		)
+	}
+
+	return storedUser, nil
 }
