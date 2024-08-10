@@ -50,7 +50,7 @@ export default function BottomNavigation() {
   return (
     <>
       <div className='fixed bottom-0 w-full'>
-        <nav className='bg-gray-50 shadow-sm flex justify-evenly py-3'>
+        <nav className='bg-violet-50 shadow-sm flex justify-evenly pb-4 pt-2'>
           {
             navs.map((nav) => {
               const { Icon } = nav
@@ -60,34 +60,45 @@ export default function BottomNavigation() {
                   {
                     nav.label === 'logout'
                       ? (
-                        <Icon
-                          onClick={() => setIsOpen(true)}
-                          className={cn(
-                            'size-6',
-                            'text-gray-500',
-                            [
-                              pathname === nav.href && [
-                                "text-green-500"
-                              ]
+                        <div className={cn(
+                          'flex flex-col items-center justify-center',
+                          'text-gray-500',
+                          [
+                            pathname === nav.href && [
+                              "text-violet-500"
                             ]
-                          )}
-                        />
+                          ]
+                        )}>
+                          <Icon
+                            onClick={() => setIsOpen(true)}
+                            className='size-6'
+                          />
+                          <span className='text-[10px]'>
+                            {nav.label}
+                          </span>
+                        </div>
                       )
                       : (
                       <Link
-                          href={nav.href}
+                        href={nav.href}
+                        className={cn(
+                          'size-6',
+                          'text-gray-500',
+                          [
+                            pathname === nav.href && [
+                              "text-violet-500"
+                            ]
+                          ]
+                        )}
                         >
-                          <Icon
-                            className={cn(
-                              'size-6',
-                              'text-gray-500',
-                              [
-                                pathname === nav.href && [
-                                  "text-green-500"
-                                ]
-                              ]
-                            )}
-                          />
+                          <div className='flex flex-col items-center justify-center'>
+                            <Icon className="size-6">
+                              {nav.label}
+                            </Icon>
+                            <span className='text-[10px]'>
+                              {nav.label}
+                            </span>
+                          </div>
                         </Link>
                       )
                   }
