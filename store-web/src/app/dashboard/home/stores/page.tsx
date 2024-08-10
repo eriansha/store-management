@@ -9,10 +9,12 @@ import { Store } from '@/types/store'
 import useDebounce from '@/hooks/UseDebounce'
 import axios from 'axios'
 import { useAuth } from '@/provider/AuthProvider'
+import useTranslation from '@/hooks/UseTranslation'
 
 
 export default function StorePage() {
   const { token } = useAuth()
+  const { t} = useTranslation()
   const [query, setQuery] = useState('')
   const router = useRouter()
   const debouncedQuery = useDebounce(query, 300)
@@ -44,7 +46,7 @@ export default function StorePage() {
     <main>
       <div className='flex gap-x-4 mb-6'>
         <SearchField
-          placeholder='Cari nama toko'
+          placeholder={t("FIND_STORE_NAME")}
           onChange={handleOnChange}
         />
       </div>
@@ -55,8 +57,8 @@ export default function StorePage() {
           <div className='w-10 h-10 bg-gray-300' />
 
           <div>
-            <h5 className='text-sm font-medium'>Add new Store</h5>
-            <div className='text-xs font-light'>Lets add new store, so the business runs well</div>
+            <h5 className='text-sm font-medium'>{t("ADD_NEW_STORE")}</h5>
+            <div className='text-xs font-light'>{t("ADD_NEW_STORE_DESC")}</div>
           </div>
         </div>
 
@@ -64,12 +66,12 @@ export default function StorePage() {
           pill
           onClick={handleClickStore}
         >
-          {"Add Store"}
+          {t("ADD_NEW_STORE")}
         </Button>
       </div>
 
       <div className='mb-16'>
-        <h2 className='font-medium my-6'>Store List</h2>
+        <h2 className='font-medium my-6'>{t("STORE_LIST")}</h2>
 
         <StoreList
           isLoading={isLoading}

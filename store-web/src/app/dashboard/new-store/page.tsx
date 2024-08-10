@@ -8,6 +8,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react'
 import { useAuth } from '@/provider/AuthProvider'
 import { useRouter } from 'next/navigation'
+import useTranslation from '@/hooks/UseTranslation'
 
 const scaleOptions: DropdownOption[] = [
   {
@@ -55,6 +56,7 @@ const FIELD_NAME = {
 }
 
 export default function NewStorePage() {
+  const { t} = useTranslation()
   const { token } = useAuth()
   const router = useRouter()
   const [termAccpeted, setTermAccepted] = useState(false)
@@ -100,7 +102,7 @@ export default function NewStorePage() {
           <InputField
             {...register(FIELD_NAME.COMPANY_NAME, { required: true, maxLength: 100 })}
             label="Official Company Name"
-            placeholder='Please input Official Company Name'
+            placeholder={t("OFFICIAL_COMPANY_PLACEHOLDER")}
           />
           {errors[FIELD_NAME.COMPANY_NAME] && <span>This field is required and must be less than 100 characters</span>}
         </div>
@@ -109,20 +111,20 @@ export default function NewStorePage() {
           <InputField
             {...register(FIELD_NAME.BRAND_NAME, { required: true, maxLength: 50 })}
             label="Brand Name"
-            placeholder='Please input Brand Name'
+            placeholder={t("BRAND_NAME_PLACEHOLDER")}
           />
           {errors[FIELD_NAME.BRAND_NAME] && <span>This field is required and must be less than 50 characters</span>}
         </div>
 
         <div className='flex flex-col'>
-          <label htmlFor="companyScale">Company Scale:</label>
+          <label htmlFor="companyScale">{t("COMPANY_SCALE_LABEL")}</label>
           <Controller
             name={FIELD_NAME.STORE_SCALE}
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
               <select {...field}>
-                <option value="">Select company scale</option>
+                <option value="">{t("SELECT_COMPANY_SCALE")}</option>
                 {
                   scaleOptions.map((option) => (
                     <option value={option.value} key={option.value}>{option.label}</option>
@@ -131,18 +133,18 @@ export default function NewStorePage() {
               </select>
               )}
             />
-          {errors[FIELD_NAME.STORE_SCALE] && <span>This field is required</span>}
+          {errors[FIELD_NAME.STORE_SCALE] && <span>{t("REQUIRED_FIELD")}</span>}
         </div>
 
         <div className='flex flex-col'>
-          <label htmlFor="companyCategory">Company Category:</label>
+          <label htmlFor="companyCategory">{t("COMPANY_CATEGORY_LABEL")}</label>
           <Controller
             name={FIELD_NAME.STORE_CATEGORY}
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
               <select {...field}>
-                <option value="">Select company category</option>
+                <option value="">{t("SELECT_COMPANY_CATEGORY")}</option>
                 {
                   categoryOptions.map((option) => (
                     <option value={option.value} key={option.value}>{option.label}</option>
@@ -151,7 +153,7 @@ export default function NewStorePage() {
               </select>
             )}
           />
-          {errors[FIELD_NAME.STORE_CATEGORY] && <span>This field is required</span>}
+          {errors[FIELD_NAME.STORE_CATEGORY] && <span>{t("REQUIRED_FIELD")}</span>}
         </div>
 
         <div className='flex gap-3 my-6'>
@@ -162,7 +164,7 @@ export default function NewStorePage() {
               onChange={handleChecked}
             />
             {" "}
-            {"I agree with Terms and Condition QRIS Merchant Service"}
+            {t("NEW_STORE_TNC")}
           </label>
         </div>
 

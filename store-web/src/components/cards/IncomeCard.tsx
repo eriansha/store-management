@@ -1,3 +1,4 @@
+import useTranslation from '@/hooks/UseTranslation'
 import { cn } from '@/lib/utils'
 
 interface IncomeProps {
@@ -16,6 +17,7 @@ const IncomeCard: React.FC<IncomeProps> = ({
   variant = "primary",
   income
 }) => {
+  const { t } = useTranslation()
   const { date, totalIncome, totalTranscation } = income
 
   return (
@@ -40,7 +42,7 @@ const IncomeCard: React.FC<IncomeProps> = ({
         </div>
 
         <div className='text-right'>
-          <div className='text-xs text-gray-600 pb-4'>Total Transaction</div>
+          <div className='text-xs text-gray-600 pb-4'>{t("TOTAL_TRANSACTION")}</div>
           <h2 className='font-semibold'>{totalTranscation}</h2>
         </div>
       </div>
