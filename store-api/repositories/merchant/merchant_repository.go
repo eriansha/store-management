@@ -2,7 +2,6 @@ package merchant
 
 import (
 	"database/sql"
-	"log"
 )
 
 type MerchantRepository struct {
@@ -30,7 +29,6 @@ func (r *MerchantRepository) GetMerchant(ID int64) (*Merchant, error) {
 		&merchant.Name)
 
 	if err != nil {
-		log.Println(err)
 		return nil, err
 	}
 

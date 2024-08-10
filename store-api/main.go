@@ -33,6 +33,8 @@ func main() {
 		Debug:            CORSDebugVar == "true" || CORSDebugVar == "1",
 	})
 
+	r.Use(middleware.LoggingMiddleware)
+
 	// Wrap the router with the CORS middleware
 	handler := corsMiddleware.Handler(r)
 

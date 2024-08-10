@@ -2,7 +2,6 @@ package transaction
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
 	"time"
 )
@@ -16,8 +15,6 @@ func GetInfoHandler(w http.ResponseWriter, r *http.Request) {
 		TotalMonthlyTransaction: 999,
 		TotalStore:              5,
 	}
-
-	log.Println("Fetch transcation info")
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(info)
