@@ -3,14 +3,28 @@
 import Button from '@/components/buttons/Button'
 import InputField from '@/components/fields/InputField'
 import PasswordField from '@/components/fields/PasswordField'
+import { useAuth } from '@/provider/AuthProvider'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 const FIELD_NAME = {
-  ACCOUNT_ID: 'account_id',
+  EMAIL: 'email',
   PASSWORD: 'password',
 }
 
+interface ServerError {
+  details: string
+  message: string
+  status_code: string
+  timestamp: string
+}
+
 export default function Home() {
+  const [serverError, setServerError] = useState<ServerError>()
+  const router = useRouter();
+  const { login } = useAuth();
   const {
     register,
     handleSubmit,
@@ -20,7 +34,29 @@ export default function Home() {
   } = useForm({ mode: 'all' });
 
   const onSubmit = (data: any) => {
-    console.log(data)
+    axios.post(`${process.env.NEXT_PUBLIC_STORE_API_BASE_URL}/login`,
+      data,
+      {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+      }
+    )
+    .then(function (response) {
+      const data = response.data
+      login(data.access_token);
+      router.push('/dashboard/home');
+    })
+    .catch(function (error) {
+      // TODO: show error message
+      const err = error?.response?.data
+      if (err) setServerError(err)
+      else {
+        alert("Gagal melakukan login")
+      }
+    });
   }
 
   return (
@@ -31,7 +67,7 @@ export default function Home() {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <InputField
-            {...register(FIELD_NAME.ACCOUNT_ID, { required: true })}
+            {...register(FIELD_NAME.EMAIL, { required: true })}
             label='Account ID'
             placeholder={"Enter your account ID"}
           />
@@ -41,6 +77,15 @@ export default function Home() {
             label='Password'
             placeholder={"Enter your Password"}
           />
+
+          {/* TODO: proper error and show/hide forget password */}
+          {
+            serverError && (
+              <div className='font-light text-xs text-red-500'>
+                {serverError.message}
+              </div>
+            )
+          }
 
           {/* TODO: change to component */}
           <div className='flex justify-between'>

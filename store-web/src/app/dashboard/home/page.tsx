@@ -1,12 +1,17 @@
+"use client"
+
 import IncomeCard from '@/components/cards/IncomeCard'
 import { fetcher } from '@/lib/utils'
 import { TransactionInfoResponse } from '@/types/transaction'
 
-export default async function DashboardPage() {
-  const transactionData: TransactionInfoResponse = await fetcher(
-    `${process.env.NEXT_PUBLIC_STORE_API_BASE_URL}/transaction-info`,
-    { cache: 'no-store' }
-  )
+export default function DashboardPage() {
+  // FIXME: replace with client side or stick with server fetching
+  // const transactionData: TransactionInfoResponse = await fetcher(
+  //   `${process.env.NEXT_PUBLIC_STORE_API_BASE_URL}/transaction-info`,
+  //   { cache: 'no-store' }
+  // )
+
+  const transactionData = {}
 
   return (
     <main>

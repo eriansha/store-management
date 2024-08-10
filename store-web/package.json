@@ -12,6 +12,7 @@
     "@heroicons/react": "^2.1.5",
     "axios": "^1.7.3",
     "clsx": "^2.1.1",
+    "jwt-decode": "^4.0.0",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
