@@ -6,6 +6,8 @@ import InputField from '@/components/fields/InputField'
 import axios from 'axios'
 import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react'
+import { useAuth } from '@/provider/AuthProvider'
+import { useRouter } from 'next/navigation'
 
 const scaleOptions: DropdownOption[] = [
   {
@@ -53,9 +55,11 @@ const FIELD_NAME = {
 }
 
 export default function NewStorePage() {
+  const { token } = useAuth()
+  const router = useRouter()
   const [termAccpeted, setTermAccepted] = useState(false)
 
-  const { register, handleSubmit, control, watch, formState: { errors, isValid } } = useForm({
+  const { register, handleSubmit, control, formState: { errors, isValid } } = useForm({
     mode: 'all'
   });
 
@@ -73,12 +77,14 @@ export default function NewStorePage() {
         headers: {
           'Content-Type': 'application/json',
           'X-Requested-With': 'XMLHttpRequest',
+          "Authorization": `Bearer ${token}`
         },
       }
     )
-    .then(function (response) {
+    .then(function () {
       // TODO: show pop up
       alert("Sukses membuat store baru");
+      router.push('/dashboard/home/stores')
     })
     .catch(function (error) {
       // TODO: show error message
