@@ -9,22 +9,19 @@ import { useAuth } from '@/provider/AuthProvider'
  * to protect private routes
  */
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const { token } = useAuth()
+  const { token, isLoading } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
-    if (!token) {
+    // Wait until token is fetched from local storage
+    if (!token && !isLoading) {
       router.push('/')
     }
-  }, [token, router])
+  }, [token, router, isLoading])
 
-  if (!token) {
-    return (
-      <div className="fixed inset-0 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    )
-  }
+  // Only render children pages if token is exist
+  if (token) return children
 
-  return children
+  // Workaround to prevent any glitch when token is still fetched but the page is already rendered
+  return <></>
 }
