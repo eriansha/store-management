@@ -1,7 +1,6 @@
 'use client';
 
 import SearchField from '@/components/fields/SearchField'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import StoreList from './StoreList'
 import { Store } from '@/types/store'
@@ -13,10 +12,9 @@ import Link from 'next/link'
 
 
 export default function StorePage() {
-  const { token } = useAuth()
+  const { token, logout } = useAuth()
   const { t} = useTranslation()
   const [query, setQuery] = useState('')
-  const router = useRouter()
   const debouncedQuery = useDebounce(query, 300)
   const [stores, setStores] = useState<Store[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -30,13 +28,14 @@ export default function StorePage() {
     }).then((response) => {
       const data = response.data
       setStores(data)
+    }).catch((error) => {
+      // TODO: use proper token refresh mechanism
+      if (error.response.status === 401) {
+        logout()
+      }
     })
     .finally(() => setIsLoading(false))
   }, [debouncedQuery, token])
-
-  const handleClickStore = () => {
-    router.push("/dashboard/new-store")
-  }
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value)

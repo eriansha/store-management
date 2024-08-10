@@ -57,8 +57,8 @@ const FIELD_NAME = {
 }
 
 export default function NewStorePage() {
-  const { t} = useTranslation()
-  const { token } = useAuth()
+  const { t } = useTranslation()
+  const { token, logout } = useAuth()
   const router = useRouter()
   const [termAccpeted, setTermAccepted] = useState(false)
 
@@ -85,14 +85,16 @@ export default function NewStorePage() {
       }
     )
     .then(function () {
-      // TODO: show pop up
       alert("Sukses membuat store baru");
       router.push('/dashboard/home/stores')
     })
     .catch(function (error) {
-      // TODO: show error message
-      console.log(error)
-      alert("Gagal membuat store baru");
+      // TODO: use proper token refresh mechanism
+      if (error.response.status === 401) {
+        logout()
+      } else {
+        alert("Gagal membuat store baru");
+      }
     });
   }
 

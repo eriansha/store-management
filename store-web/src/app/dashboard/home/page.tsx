@@ -18,7 +18,7 @@ const defaultTransactionData: TransactionInfoResponse = {
 }
 
 export default function DashboardPage() {
-  const { token} = useAuth()
+  const { token, logout } = useAuth()
   const { t } = useTranslation()
   const [transactionData, setTransactionData] = useState<TransactionInfoResponse>(defaultTransactionData)
 
@@ -30,6 +30,11 @@ export default function DashboardPage() {
     }).then((response) => {
       const data = response.data
       setTransactionData(data)
+    }).catch((error) => {
+      // TODO: use proper token refresh mechanism
+      if (error.response.status === 401) {
+        logout()
+      }
     })
   }, [token])
 
