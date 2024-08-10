@@ -21,7 +21,7 @@ const TotalStoreCard: React.FC<TotalStoreCardProps> = ({ totalStore }) => {
         <p className="text-2xl font-bold text-red-500">
           {totalStore}
         </p>
-        <p className="text-sm text-gray-600">jumlah toko yang kamu miliki</p>
+        <p className="text-sm text-gray-600">{t("TOTAL_STORE_DESC")}</p>
       </div>
     </div>
   </div>

@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import ConfirmationModal from '../modals/ConfirmationModal'
+import useTranslation from '@/hooks/UseTranslation'
 
 const navs = [
   {
@@ -32,21 +33,21 @@ const navs = [
   {
     href: "/",
     Icon: UserIcon,
-    label: 'logout'
+    label: 'Logout'
   }
 ]
 
 const Sidebar = () => {
   const { logout } = useAuth()
+  const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
-  const pathname = usePathname()
+  const path = usePathname()
 
   const handleConfirm = () => logout()
 
   const handleClose = () => {
     setIsOpen(false)
   }
-  const path = usePathname()
 
   return (
     <>
@@ -64,7 +65,7 @@ const Sidebar = () => {
                   key={nav.href}
                 >
                   {
-                    nav.label === 'logout'
+                    nav.label === 'Logout'
                       ? (
                         <div
                           className={cn(
@@ -104,9 +105,11 @@ const Sidebar = () => {
       </div>
       <ConfirmationModal
         isOpen={isOpen}
-        message={"Are you sure you want to logout? You'll need to login again to access your account."}
+        message={t("CONFIRM_LOGOUT_DESC")}
         onConfirm={handleConfirm}
         onClose={handleClose}
+        okLabel={t("LOG_OUT")}
+        cancelLabel={t("CANCEL")}
       />
     </>
   )

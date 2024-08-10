@@ -103,7 +103,7 @@ export default function NewStorePage() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputField
           {...register(FIELD_NAME.COMPANY_NAME, { required: true, maxLength: 100 })}
-          label="Official Company Name"
+          label={t("OFFICIAL_COMPANY_NAME_LABEL")}
           placeholder={t("OFFICIAL_COMPANY_PLACEHOLDER")}
           errorText={ errors[FIELD_NAME.COMPANY_NAME] && (
             <ErrorText>This field is required and must be less than 100 characters</ErrorText>
@@ -112,7 +112,7 @@ export default function NewStorePage() {
 
         <InputField
           {...register(FIELD_NAME.BRAND_NAME, { required: true, maxLength: 50 })}
-          label="Brand Name"
+          label={t("BRAND_NAME_LABEL")}
           placeholder={t("BRAND_NAME_PLACEHOLDER")}
           errorText={ errors[FIELD_NAME.BRAND_NAME] && (
             <ErrorText>This field is required and must be less than 50 characters</ErrorText>

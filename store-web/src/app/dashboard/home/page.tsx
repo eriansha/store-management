@@ -52,7 +52,7 @@ export default function DashboardPage() {
           income={{
             totalIncome: transactionData.today_income,
             totalTranscation: transactionData.today_total_transaction,
-            date: `(${transactionData.today_date})`
+            date: `, ${transactionData.today_date}`
           }}
         />
 

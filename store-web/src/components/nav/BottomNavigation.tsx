@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import { Fragment, useState } from 'react'
 import ConfirmationModal from '../modals/ConfirmationModal'
 import { useAuth } from '@/provider/AuthProvider'
+import useTranslation from '@/hooks/UseTranslation'
 
 const navs = [
   {
@@ -38,6 +39,7 @@ const navs = [
 
 export default function BottomNavigation() {
   const { logout } = useAuth()
+  const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
 
@@ -111,9 +113,11 @@ export default function BottomNavigation() {
 
       <ConfirmationModal
         isOpen={isOpen}
-        message={"Are you sure you want to logout? You'll need to login again to access your account."}
+        message={t("CONFIRM_LOGOUT_DESC")}
         onConfirm={handleConfirm}
         onClose={handleClose}
+        okLabel={t("LOG_OUT")}
+        cancelLabel={t("CANCEL")}
       />
     </>
   )
