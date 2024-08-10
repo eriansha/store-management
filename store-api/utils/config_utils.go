@@ -20,6 +20,10 @@ import (
 type EnvConfig struct {
 	JWTKey    string
 	CORSDebug string
+	DB_DRIVER string
+	DB_USER   string
+	DB_PASS   string
+	DB_NAME   string
 	// TODO: Add other environment variables here as needed
 }
 
@@ -48,6 +52,10 @@ func (c *EnvConfig) loadEnv() {
 
 	c.JWTKey = getEnvOrPanic("JWT_SECRET_KEY")
 	c.CORSDebug = getEnvOrPanic("CORS_DEBUG")
+	c.DB_DRIVER = getEnvOrPanic("DB_DRIVER")
+	c.DB_USER = getEnvOrPanic("DB_USER")
+	c.DB_PASS = getEnvOrPanic("DB_PASS")
+	c.DB_NAME = getEnvOrPanic("DB_NAME")
 	// TODO: Load other environment variables here
 }
 

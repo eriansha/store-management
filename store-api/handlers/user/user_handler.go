@@ -15,19 +15,14 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-const (
-	dbDriver = "mysql"
-	dbUser   = "root"
-	dbPass   = "root"
-	dbName   = "store_management"
-)
-
 var repo *userRepo.UserRepository
 var mRepo *merchantRepo.MerchantRepository
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO: create db abstraction
-	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
+	db, err := sql.Open(
+		utils.GetEnvConfig().DB_DRIVER,
+		utils.GetEnvConfig().DB_USER+":"+utils.GetEnvConfig().DB_PASS+"@/"+utils.GetEnvConfig().DB_NAME)
 	if err != nil {
 		panic(err.Error())
 	}

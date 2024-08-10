@@ -7,13 +7,7 @@ import (
 
 	"store-api/handlers/user"
 	storeRepo "store-api/repositories/store"
-)
-
-const (
-	dbDriver = "mysql"
-	dbUser   = "root"
-	dbPass   = "root"
-	dbName   = "store_management"
+	"store-api/utils"
 )
 
 var repo *storeRepo.StoreRepository
@@ -26,7 +20,9 @@ func GetStoresHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// TODO: create db abstraction
-	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
+	db, err := sql.Open(
+		utils.GetEnvConfig().DB_DRIVER,
+		utils.GetEnvConfig().DB_USER+":"+utils.GetEnvConfig().DB_PASS+"@/"+utils.GetEnvConfig().DB_NAME)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -51,7 +47,9 @@ func AddStoreHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// TODO: create db abstraction
-	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
+	db, err := sql.Open(
+		utils.GetEnvConfig().DB_DRIVER,
+		utils.GetEnvConfig().DB_USER+":"+utils.GetEnvConfig().DB_PASS+"@/"+utils.GetEnvConfig().DB_NAME)
 	if err != nil {
 		panic(err.Error())
 	}
