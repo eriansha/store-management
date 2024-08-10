@@ -30,7 +30,7 @@ const SelectDropdownField: React.FC<SelectDropdownFieldProps> = ({
   }
 
   return (
-    <div className="relative">
+    <div className="relative mb-4">
       <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-700">
         {label}
       </label>
