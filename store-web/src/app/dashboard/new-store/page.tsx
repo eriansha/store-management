@@ -97,7 +97,7 @@ export default function NewStorePage() {
   }
 
   return (
-    <main>
+    <main className='flex justify-center items-center'>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <InputField
