@@ -37,7 +37,6 @@ const ForgetPasswordForm: React.FC<ForgetPasswordFormProps> = ({ toggleForgetPas
 
       <Button
         type='submit'
-        pill
         className='mt-4'
         disabled={!isValid}
       >
