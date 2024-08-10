@@ -35,7 +35,7 @@ export default function DashboardPage() {
 
   return (
     <main>
-      <h5 className='text-md text-gray-600 my-4'>
+      <h5 className='lg:text-lg text-xs text-gray-600 my-4'>
         <strong>
           {`Hi, ${"Dashboard_008"}`}
         </strong>

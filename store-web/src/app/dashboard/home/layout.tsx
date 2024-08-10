@@ -18,15 +18,15 @@ export default function DashboardLayout({
       </div>
 
       <main className='lg:ml-64'>
-        <div className='bg-white sticky top-0 flex gap-3 justify-start justify-between shadow-sm w-full py-4 px-4 mb-4 lg:mb-10'>
+        <div className='bg-white sticky top-0 flex gap-3 justify-start justify-between shadow-sm w-full py-4 px-4'>
           <h2 className='lg:hidden font-bold text-violet-600'>Store Dashboard</h2>
           <div className='ml-auto'>
             <LanguageSwitcher/>
           </div>
         </div>
 
-        <div className='p-4'>
-        {children}
+        <div className='px-4 lg:py-2'>
+          {children}
         </div>
       </main>
 
