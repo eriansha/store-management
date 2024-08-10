@@ -1,7 +1,6 @@
 "use client"
 
 import Button from '@/components/buttons/Button'
-import { DropdownOption } from '@/components/fields/DropdownField'
 import InputField from '@/components/fields/InputField'
 import axios from 'axios'
 import { useForm, Controller } from 'react-hook-form';
@@ -9,7 +8,7 @@ import { useState } from 'react'
 import { useAuth } from '@/provider/AuthProvider'
 import { useRouter } from 'next/navigation'
 import useTranslation from '@/hooks/UseTranslation'
-import SelectDropdownField from '@/components/fields/SelectDropdownField'
+import SelectDropdownField, { DropdownOption } from '@/components/fields/SelectDropdownField'
 
 const scaleOptions: DropdownOption[] = [
   {

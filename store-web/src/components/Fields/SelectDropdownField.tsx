@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
-import { DropdownOption } from './DropdownField'
+
+export interface DropdownOption {
+  value: string
+  label: string
+}
 
 interface SelectDropdownFieldProps {
   placeholder?: string
-  options: DropdownOption[],
+  options: DropdownOption[]
   onChange: (optionValue: string) => void
   value: string
   label: string
