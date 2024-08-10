@@ -3,6 +3,7 @@ package middleware
 import (
 	"context"
 	"net/http"
+	"store-api/common"
 	"store-api/handlers/user"
 	"store-api/utils"
 	"strings"
@@ -14,13 +15,23 @@ func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		authHeader := r.Header.Get("Authorization")
 		if authHeader == "" {
-			http.Error(w, "Authorization header is required", http.StatusUnauthorized)
+			httpError := common.NewCustomError(
+				"Unauthorized",
+				http.StatusUnauthorized,
+				"Authorization header is required",
+			)
+			common.SendErrorResponse(w, httpError)
 			return
 		}
 
 		bearerToken := strings.Split(authHeader, " ")
 		if len(bearerToken) != 2 || strings.ToLower(bearerToken[0]) != "bearer" {
-			http.Error(w, "Invalid Authorization header format", http.StatusUnauthorized)
+			httpError := common.NewCustomError(
+				"Unauthorized",
+				http.StatusUnauthorized,
+				"Invalid Authorization header format",
+			)
+			common.SendErrorResponse(w, httpError)
 			return
 		}
 
@@ -33,15 +44,30 @@ func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
 
 		if err != nil {
 			if err == jwt.ErrSignatureInvalid {
-				http.Error(w, "Invalid token signature", http.StatusUnauthorized)
+				httpError := common.NewCustomError(
+					"Unauthorized",
+					http.StatusUnauthorized,
+					"Invalid token signature",
+				)
+				common.SendErrorResponse(w, httpError)
 				return
 			}
-			http.Error(w, "Invalid token", http.StatusUnauthorized)
+			httpError := common.NewCustomError(
+				"Unauthorized",
+				http.StatusUnauthorized,
+				"Invalid Token",
+			)
+			common.SendErrorResponse(w, httpError)
 			return
 		}
 
 		if !token.Valid {
-			http.Error(w, "Invalid token", http.StatusUnauthorized)
+			httpError := common.NewCustomError(
+				"Invalid token",
+				http.StatusUnauthorized,
+				"Invalid Authorization header format",
+			)
+			common.SendErrorResponse(w, httpError)
 			return
 		}
 
