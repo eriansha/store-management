@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"store-api/common"
 	"store-api/handlers/user"
 	storeRepo "store-api/repositories/store"
 	"store-api/utils"
@@ -58,7 +59,18 @@ func AddStoreHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Parse JSON data from the request body
 	var store storeRepo.Store
-	json.NewDecoder(r.Body).Decode(&store)
+	if err := json.NewDecoder(r.Body).Decode(&store); err != nil {
+		customErr := common.NewCustomError("Invalid request body", http.StatusBadRequest, err.Error())
+		common.SendErrorResponse(w, customErr)
+		return
+	}
+
+	err = validateNewStore(&store)
+	if err != nil {
+		customErr := err.(*common.CustomError)
+		common.SendErrorResponse(w, customErr)
+		return
+	}
 
 	repo = storeRepo.NewStoreRepository(db)
 	err = repo.Add(merchantID, store.CompanyName, store.BrandName, store.Scale, store.Category)
@@ -68,4 +80,24 @@ func AddStoreHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
+}
+
+func validateNewStore(newStore *storeRepo.Store) error {
+	if len(newStore.CompanyName) > 100 {
+		return common.NewCustomError(
+			"Invalid Company Name",
+			http.StatusBadRequest,
+			"The Official Company Name exceeds the maximum allowed length of 100 characters.",
+		)
+	}
+
+	if len(newStore.BrandName) > 50 {
+		return common.NewCustomError(
+			"Invalid Brand Name",
+			http.StatusBadRequest,
+			"The Brand Name exceeds the maximum allowed length of 50 characters.",
+		)
+	}
+
+	return nil
 }
