@@ -2,33 +2,11 @@
 
 import IncomeCard from '@/components/cards/IncomeCard'
 import useTranslation from '@/hooks/UseTranslation'
-import { fetcher } from '@/lib/utils'
 import { useAuth } from '@/provider/AuthProvider'
-import { useLanguage } from '@/provider/LanguageProvider'
 import { TransactionInfoResponse } from '@/types/transaction'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-
-const LanguageSwitcher = () => {
-  const { language, changeLanguage } = useLanguage();
-
-  const handleChangeLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value
-
-    if (value === 'id') {
-      changeLanguage('id')
-    } else {
-      changeLanguage('en')
-    }
-  }
-
-  return (
-    <select value={language} onChange={handleChangeLanguage}>
-      <option value="en">English</option>
-      <option value="id">Bahasa Indonesia</option>
-    </select>
-  );
-};
+import TotalStoreCard from './TotalStoreCard'
 
 const defaultTransactionData: TransactionInfoResponse = {
   today_date: '',
@@ -57,38 +35,33 @@ export default function DashboardPage() {
 
   return (
     <main>
-      <div className='flex justify-between mb-2'>
-        <h2 className='font-bold'>Dashboard</h2>
-        <LanguageSwitcher/>
-      </div>
-      <h5 className='text-xs text-gray-600 mb-2'>Hi Dashboard_008</h5>
+      <h5 className='text-md text-gray-600 my-4'>
+        <strong>
+          {`Hi, ${"Dashboard_008"}`}
+        </strong>
+      </h5>
+      <div className='lg:flex lg:gap-4'>
+        <IncomeCard
+          label={t("TODAY_INCOME")}
+          variant="primary"
+          income={{
+            totalIncome: transactionData.today_income,
+            totalTranscation: transactionData.today_total_transaction,
+            date: `(${transactionData.today_date})`
+          }}
+        />
 
-      <IncomeCard
-        label={t("TODAY_INCOME")}
-        variant="primary"
-        income={{
-          totalIncome: transactionData.today_income,
-          totalTranscation: transactionData.today_total_transaction,
-          date: transactionData.today_date
-        }}
-      />
+        <IncomeCard
+          label={t("TODAY_MONTHLY_INCOME")}
+          variant="secondary"
+          income={{
+            totalIncome: transactionData.total_monthly_income,
+            totalTranscation: transactionData.total_monthly_transaction,
+            date: ""
+          }}
+        />
 
-      <IncomeCard
-        label={t("TODAY_MONTHLY_INCOME")}
-        variant="secondary"
-        income={{
-          totalIncome: transactionData.total_monthly_income,
-          totalTranscation: transactionData.total_monthly_transaction,
-          date: "This month"
-        }}
-      />
-
-      {/* TODO: create reusable component */}
-      <div className='px-2 py-3 mb-2 rounded-md bg-sky-200'>
-        <div className='flex justify-between'>
-          <h2 className='font-semibold'>{t("TOTAL_STORE")}</h2>
-          <h2 className='font-semibold'>{transactionData.total_store}</h2>
-        </div>
+        <TotalStoreCard totalStore={transactionData.total_store} />
       </div>
     </main>
   )

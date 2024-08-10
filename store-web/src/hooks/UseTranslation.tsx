@@ -1,8 +1,7 @@
 import { Language, useLanguage } from '@/provider/LanguageProvider'
 import { useCallback } from 'react'
 
-type TranslationKeys = 'WELCOME_BACK' |
-  'LOG_IN' |
+type TranslationKeys = 'LOG_IN' |
   'LOGIN_FORGET_PASSWORD_DESC' |
   'LOGIN_CHANGE_PASSWORD' |
   'EMAIL' |
@@ -37,7 +36,6 @@ const translations: Translations = {
   en: {
     EMAIL: 'Email',
     PASSWORD: 'Password',
-    WELCOME_BACK: 'Welcome Back',
     LOG_IN: 'Log In',
     LOGIN_FORGET_PASSWORD_DESC: 'Already have account?',
     LOGIN_CHANGE_PASSWORD: 'Change Password',
@@ -64,7 +62,6 @@ const translations: Translations = {
   id: {
     EMAIL: 'Email',
     PASSWORD: 'Kata Sandi',
-    WELCOME_BACK: 'Selamat Datang Kembali',
     LOG_IN: 'Masuk',
     LOGIN_FORGET_PASSWORD_DESC: 'Sudah punya akun?',
     LOGIN_CHANGE_PASSWORD: 'Ubah Password',

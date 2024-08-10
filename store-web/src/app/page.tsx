@@ -13,7 +13,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex items-center justify-center h-screen bg-emerald-50">
+    <main className="flex items-center justify-center h-screen bg-purple-50">
       <div className="w-full max-w-md px-8 pt-6 pb-8 mb-4 bg-white shadow-sm border border-color-slate-100 rounded-lg">
         {
           enableForgetPassword

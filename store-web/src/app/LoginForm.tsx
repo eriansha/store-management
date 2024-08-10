@@ -69,7 +69,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h5 className="mb-6 font-bold text-center">{t("WELCOME_BACK")}</h5>
+      <h5 className="mb-6 font-bold text-center">{"Store Management"}</h5>
 
       <InputField
         {...register(FIELD_NAME.EMAIL, { required: true })}
@@ -93,7 +93,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
 
       <Button
         type='submit'
-        pill
         className='mt-3'
         disabled={!isValid}
       >
@@ -103,7 +102,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
       <div className='flex justify-center mt-5'>
         <span
           onClick={toggleForgetPassword}
-          className='font-light text-xs underline'
+          className='font-light text-xs underline text-violet-500'
         >
           {t("FORGET_PASSWORD")}
         </span>
