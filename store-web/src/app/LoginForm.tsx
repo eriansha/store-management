@@ -8,7 +8,6 @@ import { useAuth } from '@/provider/AuthProvider'
 import { ServerError } from '@/types/common'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 const FIELD_NAME = {
@@ -23,16 +22,19 @@ interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
   const {t} = useTranslation()
-  const [serverError, setServerError] = useState<ServerError>()
+  // const [serverError, setServerError] = useState<ServerError | undefined>()
   const router = useRouter();
   const { login } = useAuth();
   const {
     register,
     handleSubmit,
+    setError,
     formState: {
+      errors,
       isValid
     }
   } = useForm({ mode: 'all' });
+
 
   const onSubmit = (data: any) => {
     axios.post(`${process.env.NEXT_PUBLIC_STORE_API_BASE_URL}/login`,
@@ -53,8 +55,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
     .catch(function (error) {
       // TODO: show error message
       const err = error?.response?.data
-      if (err) setServerError(err)
-      else {
+      if (err) {
+        const serverError:  ServerError = err
+        setError("root", {
+          type: serverError.status_code,
+          message: serverError.details
+        })
+      } else {
         alert("Gagal melakukan login")
       }
     });
@@ -76,11 +83,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
         placeholder={t("ENTER_YOUR_PASSWORD")}
       />
 
-      {/* TODO: proper error and show/hide forget password */}
       {
-        serverError && (
+        errors["root"] && (
           <div className='font-light text-xs text-red-500'>
-            {serverError.message}
+            {errors["root"].message}
           </div>
         )
       }
