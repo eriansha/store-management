@@ -147,10 +147,11 @@ export default function NewStorePage() {
         />
         {errors[FIELD_NAME.STORE_CATEGORY] && <span>{t("REQUIRED_FIELD")}</span>}
 
-        <div className='flex gap-3 my-6'>
-          <label>
+        <div className='flex items-center gap-3 my-6'>
+          <label className='text-sm'>
             <input
               type="checkbox"
+              className='text-violet-400 border-gray-300 rounded focus:ring-violet-500 accent-violet-500'
               value={termAccpeted.toString()}
               onChange={handleChecked}
             />
