@@ -52,18 +52,18 @@ export default function BottomNavigation() {
   return (
     <>
       <div className='fixed bottom-0 w-full'>
-        <nav className='bg-violet-50 shadow-sm flex justify-evenly pb-4 pt-2'>
+        <nav className='bg-violet-50 shadow-sm flex justify-evenly items-center pb-3 pt-3'>
           {
             navs.map((nav) => {
               const { Icon } = nav
 
               return (
-                <Fragment key={nav.href}>
+                <div key={nav.href}>
                   {
                     nav.label === 'logout'
                       ? (
                         <div className={cn(
-                          'flex flex-col items-center justify-center',
+                          'flex flex-col items-center justify-end',
                           'text-gray-500',
                           [
                             pathname === nav.href && [
@@ -73,7 +73,7 @@ export default function BottomNavigation() {
                         )}>
                           <Icon
                             onClick={() => setIsOpen(true)}
-                            className='size-6'
+                            className='size-5'
                           />
                           <span className='text-[10px]'>
                             {nav.label}
@@ -84,7 +84,7 @@ export default function BottomNavigation() {
                       <Link
                         href={nav.href}
                         className={cn(
-                          'size-6',
+                          'size-5',
                           'text-gray-500',
                           [
                             pathname === nav.href && [
@@ -93,7 +93,7 @@ export default function BottomNavigation() {
                           ]
                         )}
                         >
-                          <div className='flex flex-col items-center justify-center'>
+                          <div className='flex flex-col items-center justify-end'>
                             <Icon className="size-6">
                               {nav.label}
                             </Icon>
@@ -104,7 +104,7 @@ export default function BottomNavigation() {
                         </Link>
                       )
                   }
-                </Fragment>
+                </div>
               )
             })
           }
