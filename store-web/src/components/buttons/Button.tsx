@@ -22,7 +22,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const disabled = isLoading || buttonDisabled;
-    const borderRadius = pill ? "rounded-full" : 'rounded-md'
     const ariaLabel = typeof children !== "string" ? "button label" : children
 
     return (
@@ -31,10 +30,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         type='button'
         disabled={disabled}
         className={cn(
-          `w-full py-2 bg-green-600 text-white ${borderRadius} ${className}`,
+          `w-full py-2 bg-violet-600 text-white rounded-md ${className}`,
           [
             disabled && [
               'bg-gray-300'
+            ]
+          ],
+          [
+            pill && [
+              'rounded-full'
             ]
           ]
         )}
