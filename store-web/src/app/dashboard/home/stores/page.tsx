@@ -1,6 +1,5 @@
 'use client';
 
-import Button from '@/components/buttons/Button'
 import SearchField from '@/components/fields/SearchField'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -10,6 +9,7 @@ import useDebounce from '@/hooks/UseDebounce'
 import axios from 'axios'
 import { useAuth } from '@/provider/AuthProvider'
 import useTranslation from '@/hooks/UseTranslation'
+import Link from 'next/link'
 
 
 export default function StorePage() {
@@ -44,34 +44,21 @@ export default function StorePage() {
 
   return (
     <main>
-      <div className='flex gap-x-4 mb-6'>
+      <div className='flex gap-x-4'>
         <SearchField
           placeholder={t("FIND_STORE_NAME")}
           onChange={handleOnChange}
         />
       </div>
 
-      <div className='bg-sky-50 rounded-md p-4'>
-        <div className='flex gap-4 mb-4'>
-          {/* TODO: change into icon */}
-          <div className='w-10 h-10 bg-gray-300' />
-
-          <div>
-            <h5 className='text-sm font-medium'>{t("ADD_NEW_STORE")}</h5>
-            <div className='text-xs font-light'>{t("ADD_NEW_STORE_DESC")}</div>
-          </div>
-        </div>
-
-        <Button
-          pill
-          onClick={handleClickStore}
-        >
-          {t("ADD_NEW_STORE")}
-        </Button>
-      </div>
-
       <div className='mb-16'>
-        <h2 className='font-medium my-6'>{t("STORE_LIST")}</h2>
+        <div className='flex justify-between items-center'>
+          <h2 className='font-medium my-6'>{t("STORE_LIST")}</h2>
+
+          <Link href="/dashboard/new-store" className='text-violet-500'>
+            {t("ADD_NEW_STORE")}
+          </Link>
+        </div>
 
         <StoreList
           isLoading={isLoading}
