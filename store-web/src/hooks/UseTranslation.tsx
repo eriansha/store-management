@@ -3,6 +3,8 @@ import { useCallback } from 'react'
 
 type TranslationKeys = 'WELCOME_BACK' |
   'LOG_IN' |
+  'LOGIN_FORGET_PASSWORD_DESC' |
+  'LOGIN_CHANGE_PASSWORD' |
   'EMAIL' |
   'PASSWORD' |
   'FORGET_PASSWORD' |
@@ -37,6 +39,8 @@ const translations: Translations = {
     PASSWORD: 'Password',
     WELCOME_BACK: 'Welcome Back',
     LOG_IN: 'Log In',
+    LOGIN_FORGET_PASSWORD_DESC: 'Already have account?',
+    LOGIN_CHANGE_PASSWORD: 'Change Password',
     FORGET_PASSWORD: 'Forget Your Password',
     REQUIRED_FIELD: 'This field is required',
     ENTER_YOUR_PASSWORD: 'Enter Your Password',
@@ -62,6 +66,8 @@ const translations: Translations = {
     PASSWORD: 'Kata Sandi',
     WELCOME_BACK: 'Selamat Datang Kembali',
     LOG_IN: 'Masuk',
+    LOGIN_FORGET_PASSWORD_DESC: 'Sudah punya akun?',
+    LOGIN_CHANGE_PASSWORD: 'Ubah Password',
     FORGET_PASSWORD: 'Lupa Kata Kunci',
     REQUIRED_FIELD: 'Harus diisi',
     ENTER_YOUR_PASSWORD: 'Masukkan Kata Kunci Anda',
