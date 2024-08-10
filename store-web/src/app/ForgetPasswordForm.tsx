@@ -50,7 +50,7 @@ const ForgetPasswordForm: React.FC<ForgetPasswordFormProps> = ({ toggleForgetPas
           {" "}
           <span
             onClick={toggleForgetPassword}
-            className='underline text-violet-500'
+            className='underline text-violet-500 cursor-pointer'
           >
             {t("LOG_IN")}
           </span>

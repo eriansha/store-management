@@ -104,7 +104,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
       <div className='flex justify-center mt-5'>
         <span
           onClick={toggleForgetPassword}
-          className='font-light text-xs underline text-violet-500'
+          className='font-light text-xs underline text-violet-500 cursor-pointer'
         >
           {t("FORGET_PASSWORD")}
         </span>
