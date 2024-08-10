@@ -6,9 +6,16 @@ import { isTokenValid } from '@/lib/Auth'
 
 interface AuthContextType {
   isLoading: boolean
-  token: string | null
-  login: (token: string) => void
+  token: string | null,
+  user: User | undefined
+  login: (user: any, token: string) => void
   logout: () => void
+}
+
+interface User {
+  id: string
+  accountNumber: string
+  fullName: string
 }
 
 /** Context structure */
@@ -17,6 +24,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 /** Context provider to manage authentication state */
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true)
+  const [user, setUser] = useState<User>()
   const [token, setToken] = useState<string | null>(null)
   const router = useRouter()
   const path = usePathname()
@@ -33,7 +41,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(false)
   }, [path, router])
 
-  const login = (newToken: string) => {
+  const login = (user: any, newToken: string) => {
+    setUser({
+      id: user.id,
+      accountNumber: user.account_number,
+      fullName: user.full_name
+    })
     localStorage.setItem('token', newToken)
     setToken(newToken)
   }
@@ -60,6 +73,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     <AuthContext.Provider value={{
       isLoading,
       token,
+      user,
       login,
       logout
     }}>

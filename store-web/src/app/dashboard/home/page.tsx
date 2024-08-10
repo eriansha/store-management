@@ -18,7 +18,7 @@ const defaultTransactionData: TransactionInfoResponse = {
 }
 
 export default function DashboardPage() {
-  const { token, logout } = useAuth()
+  const { token, logout, user } = useAuth()
   const { t } = useTranslation()
   const [transactionData, setTransactionData] = useState<TransactionInfoResponse>(defaultTransactionData)
 
@@ -42,7 +42,7 @@ export default function DashboardPage() {
     <main>
       <h5 className='lg:text-lg text-xs text-gray-600 my-4'>
         <strong>
-          {`Hi, ${"Dashboard_008"}`}
+          {`Hi, ${user?.fullName}`}
         </strong>
       </h5>
       <div className='lg:flex lg:gap-4'>

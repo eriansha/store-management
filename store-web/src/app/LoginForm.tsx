@@ -50,7 +50,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
     )
     .then(function (response) {
       const data = response.data
-      login(data.access_token);
+      const { user } = data
+      login(user, data.access_token);
       router.push('/dashboard/home');
     })
     .catch(function (error) {
