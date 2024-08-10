@@ -30,36 +30,36 @@ const PasswordField = forwardRef<HTMLInputElement, ButtonProps>(
       <div className='flex flex-col mb-4 text-sm'>
         {
           label && (
-            <label
-              htmlFor={inputId}
-              className='font-medium'
-            >
-              {label}
-            </label>
+            <div className='flex justify-between'>
+              <label
+                htmlFor={inputId}
+                className='block mb-2 text-sm font-medium text-gray-700'
+              >
+                {label}
+              </label>
+              <button
+                type='button'
+                onClick={handleToggleType}
+                className='mr-2'
+                aria-label={isShowPassword ? 'Password visible' : 'Password is not visible'}
+              >
+                {
+                  isShowPassword
+                    ? <EyeIcon className='size-4 text-black-600' />
+                    : <EyeSlashIcon className='size-4 text-black-600' />
+                }
+              </button>
+            </div>
           )
         }
-        <div className='flex border border-grey-300 rounded-md'>
-          <input
-            id={inputId}
-            ref={ref}
-            className='w-full py-4 px-2 outline-none'
-            placeholder={placeholder}
-            type={ isShowPassword ? 'text' : 'password' }
-            {...props}
-          />
-
-          <button
-            onClick={handleToggleType}
-            className='mr-2'
-            aria-label={isShowPassword ? 'Password visible' : 'Password is not visible'}
-          >
-            {
-              isShowPassword
-                ? <EyeIcon className='size-6 text-black-600' />
-                : <EyeSlashIcon className='size-6 text-black-600' />
-            }
-          </button>
-        </div>
+        <input
+          id={inputId}
+          ref={ref}
+          className="flex justify-between w-full px-4 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          placeholder={placeholder}
+          type={ isShowPassword ? 'text' : 'password' }
+          {...props}
+        />
       </div>
     );
   }

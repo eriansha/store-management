@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { useAuth } from '@/provider/AuthProvider'
 import { useRouter } from 'next/navigation'
 import useTranslation from '@/hooks/UseTranslation'
+import SelectDropdownField from '@/components/fields/SelectDropdownField'
 
 const scaleOptions: DropdownOption[] = [
   {
@@ -116,45 +117,35 @@ export default function NewStorePage() {
           {errors[FIELD_NAME.BRAND_NAME] && <span>This field is required and must be less than 50 characters</span>}
         </div>
 
-        <div className='flex flex-col'>
-          <label htmlFor="companyScale">{t("COMPANY_SCALE_LABEL")}</label>
-          <Controller
-            name={FIELD_NAME.STORE_SCALE}
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <select {...field}>
-                <option value="">{t("SELECT_COMPANY_SCALE")}</option>
-                {
-                  scaleOptions.map((option) => (
-                    <option value={option.value} key={option.value}>{option.label}</option>
-                  ))
-                }
-              </select>
-              )}
+        <Controller
+          name={FIELD_NAME.STORE_SCALE}
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <SelectDropdownField
+              {...field}
+              placeholder={t("SELECT_COMPANY_SCALE")}
+              label={t("COMPANY_SCALE_LABEL")}
+              options={scaleOptions}
             />
-          {errors[FIELD_NAME.STORE_SCALE] && <span>{t("REQUIRED_FIELD")}</span>}
-        </div>
+          )}
+        />
+        {errors[FIELD_NAME.STORE_SCALE] && <span>{t("REQUIRED_FIELD")}</span>}
 
-        <div className='flex flex-col'>
-          <label htmlFor="companyCategory">{t("COMPANY_CATEGORY_LABEL")}</label>
-          <Controller
-            name={FIELD_NAME.STORE_CATEGORY}
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <select {...field}>
-                <option value="">{t("SELECT_COMPANY_CATEGORY")}</option>
-                {
-                  categoryOptions.map((option) => (
-                    <option value={option.value} key={option.value}>{option.label}</option>
-                  ))
-                }
-              </select>
-            )}
-          />
-          {errors[FIELD_NAME.STORE_CATEGORY] && <span>{t("REQUIRED_FIELD")}</span>}
-        </div>
+        <Controller
+          name={FIELD_NAME.STORE_CATEGORY}
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <SelectDropdownField
+              {...field}
+              placeholder={t("SELECT_COMPANY_CATEGORY")}
+              label={t("COMPANY_CATEGORY_LABEL")}
+              options={categoryOptions}
+            />
+          )}
+        />
+        {errors[FIELD_NAME.STORE_CATEGORY] && <span>{t("REQUIRED_FIELD")}</span>}
 
         <div className='flex gap-3 my-6'>
           <label>
