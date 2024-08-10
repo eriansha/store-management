@@ -4,7 +4,8 @@ import (
 	"database/sql"
 	"encoding/json"
 	"net/http"
-	"store-api/repositories/store"
+
+	"store-api/handlers/user"
 	storeRepo "store-api/repositories/store"
 )
 
@@ -18,6 +19,12 @@ const (
 var repo *storeRepo.StoreRepository
 
 func GetStoresHandler(w http.ResponseWriter, r *http.Request) {
+	merchantID, ok := r.Context().Value(user.MerchantIDKey).(int64)
+	if !ok {
+		http.Error(w, "Failed to get user ID from context", http.StatusInternalServerError)
+		return
+	}
+
 	// TODO: create db abstraction
 	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
 	if err != nil {
@@ -25,11 +32,8 @@ func GetStoresHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	repo = storeRepo.NewStoreRepository(db)
-
-	// TODO: change hardcoded merchant ID from JWT
-
 	searchParam := r.URL.Query().Get("search")
-	stores, err := repo.GetStores(1, searchParam)
+	stores, err := repo.GetStores(merchantID, searchParam)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -40,6 +44,12 @@ func GetStoresHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func AddStoreHandler(w http.ResponseWriter, r *http.Request) {
+	merchantID, ok := r.Context().Value(user.MerchantIDKey).(int64)
+	if !ok {
+		http.Error(w, "Failed to get user ID from context", http.StatusInternalServerError)
+		return
+	}
+
 	// TODO: create db abstraction
 	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
 	if err != nil {
@@ -49,13 +59,11 @@ func AddStoreHandler(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	// Parse JSON data from the request body
-	var store store.Store
+	var store storeRepo.Store
 	json.NewDecoder(r.Body).Decode(&store)
 
 	repo = storeRepo.NewStoreRepository(db)
-
-	// TODO: change hardcoded merchant ID from JWT
-	err = repo.Add(1, store.CompanyName, store.BrandName, store.Scale, store.Category)
+	err = repo.Add(merchantID, store.CompanyName, store.BrandName, store.Scale, store.Category)
 	if err != nil {
 		http.Error(w, "Failed to create user", http.StatusInternalServerError)
 		return

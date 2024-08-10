@@ -7,14 +7,20 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
+type contextKey string
+
+const UserIDKey contextKey = "user_id"
+const MerchantIDKey contextKey = "merchant_id"
+
 type UserRequest struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
 type Claims struct {
-	ID       int64  `json:"user_id"`
-	Username string `json:"username"`
+	UserID     int64  `json:"user_id"`
+	MerchantID int64  `json:"merchant_id"`
+	Username   string `json:"username"`
 	jwt.StandardClaims
 }
 

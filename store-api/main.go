@@ -6,6 +6,7 @@ import (
 	"store-api/handlers/store"
 	"store-api/handlers/transaction"
 	"store-api/handlers/user"
+	"store-api/middleware"
 	"store-api/utils"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -19,9 +20,9 @@ func main() {
 
 	// define HTTP routes using the router
 	r.HandleFunc("/api/login", user.LoginHandler).Methods("POST")
-	r.HandleFunc("/api/transaction-info", transaction.GetInfoHandler).Methods("GET")
-	r.HandleFunc("/api/stores", store.GetStoresHandler).Methods("GET")
-	r.HandleFunc("/api/stores", store.AddStoreHandler).Methods("POST")
+	r.HandleFunc("/api/transaction-info", middleware.AuthMiddleware(transaction.GetInfoHandler)).Methods("GET")
+	r.HandleFunc("/api/stores", middleware.AuthMiddleware(store.GetStoresHandler)).Methods("GET")
+	r.HandleFunc("/api/stores", middleware.AuthMiddleware(store.AddStoreHandler)).Methods("POST")
 
 	// CORS middleware
 	corsMiddleware := cors.New(cors.Options{
