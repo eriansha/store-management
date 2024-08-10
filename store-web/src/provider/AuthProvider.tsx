@@ -41,7 +41,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     localStorage.removeItem('token')
     setToken(null)
-    router.push('/login')
   }
 
   if (isLoading) {

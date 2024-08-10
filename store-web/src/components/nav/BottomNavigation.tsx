@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { Fragment, useState } from 'react'
 import ConfirmationModal from '../modals/ConfirmationModal'
+import { useAuth } from '@/provider/AuthProvider'
 
 const navs = [
   {
@@ -36,12 +37,11 @@ const navs = [
 ]
 
 export default function BottomNavigation() {
+  const { logout } = useAuth()
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
 
-  const handleConfirm = () => {
-
-  }
+  const handleConfirm = () => logout()
 
   const handleClose = () => {
     setIsOpen(false)
