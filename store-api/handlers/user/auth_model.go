@@ -2,7 +2,6 @@ package user
 
 import (
 	"store-api/repositories/merchant"
-	"store-api/repositories/user"
 
 	"github.com/golang-jwt/jwt"
 )
@@ -24,8 +23,14 @@ type Claims struct {
 	jwt.StandardClaims
 }
 
+type UserResponse struct {
+	ID            int64  `json:"id"`
+	AccountNumber string `json:"account_number"`
+	FullName      string `json:"full_name"`
+}
+
 type LoginResponse struct {
 	AccessToken string            `json:"access_token"`
-	User        user.User         `json:"user"`
+	User        UserResponse      `json:"user"`
 	Merchant    merchant.Merchant `json:"merchant"`
 }

@@ -80,9 +80,14 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	userResponse := UserResponse{
+		ID:            user.ID,
+		AccountNumber: user.AccountNumber,
+		FullName:      user.FullName}
+
 	response := LoginResponse{
 		AccessToken: tokenString,
-		User:        *user,
+		User:        userResponse,
 		Merchant:    *merchant,
 	}
 
