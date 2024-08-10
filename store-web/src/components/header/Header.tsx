@@ -9,7 +9,7 @@ export default function Header() {
   const router = useRouter()
 
   return (
-    <div className='sticky top-0 flex gap-3 justify-start items-center shadow-md w-full py-4 px-3 mb-3'>
+    <div className='bg-white sticky top-0 flex gap-3 shadow-sm w-full py-4 px-4'>
       <ChevronLeftIcon
         className='size-6 text-black-600 cursor-pointer'
         onClick={() => router.back()}
