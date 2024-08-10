@@ -9,6 +9,7 @@ import { useAuth } from '@/provider/AuthProvider'
 import { useRouter } from 'next/navigation'
 import useTranslation from '@/hooks/UseTranslation'
 import SelectDropdownField, { DropdownOption } from '@/components/fields/SelectDropdownField'
+import ErrorText from '@/components/texts/ErrorText'
 
 const scaleOptions: DropdownOption[] = [
   {
@@ -98,23 +99,23 @@ export default function NewStorePage() {
   return (
     <main className='flex justify-center items-center'>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <InputField
-            {...register(FIELD_NAME.COMPANY_NAME, { required: true, maxLength: 100 })}
-            label="Official Company Name"
-            placeholder={t("OFFICIAL_COMPANY_PLACEHOLDER")}
-          />
-          {errors[FIELD_NAME.COMPANY_NAME] && <span>This field is required and must be less than 100 characters</span>}
-        </div>
+        <InputField
+          {...register(FIELD_NAME.COMPANY_NAME, { required: true, maxLength: 100 })}
+          label="Official Company Name"
+          placeholder={t("OFFICIAL_COMPANY_PLACEHOLDER")}
+          errorText={ errors[FIELD_NAME.COMPANY_NAME] && (
+            <ErrorText>This field is required and must be less than 100 characters</ErrorText>
+          )}
+        />
 
-        <div>
-          <InputField
-            {...register(FIELD_NAME.BRAND_NAME, { required: true, maxLength: 50 })}
-            label="Brand Name"
-            placeholder={t("BRAND_NAME_PLACEHOLDER")}
-          />
-          {errors[FIELD_NAME.BRAND_NAME] && <span>This field is required and must be less than 50 characters</span>}
-        </div>
+        <InputField
+          {...register(FIELD_NAME.BRAND_NAME, { required: true, maxLength: 50 })}
+          label="Brand Name"
+          placeholder={t("BRAND_NAME_PLACEHOLDER")}
+          errorText={ errors[FIELD_NAME.BRAND_NAME] && (
+            <ErrorText>This field is required and must be less than 50 characters</ErrorText>
+          )}
+        />
 
         <Controller
           name={FIELD_NAME.STORE_SCALE}
@@ -126,10 +127,12 @@ export default function NewStorePage() {
               placeholder={t("SELECT_COMPANY_SCALE")}
               label={t("COMPANY_SCALE_LABEL")}
               options={scaleOptions}
+              errorText={ errors[FIELD_NAME.STORE_SCALE] && (
+                <ErrorText>{t("REQUIRED_FIELD")}</ErrorText>
+              )}
             />
           )}
         />
-        {errors[FIELD_NAME.STORE_SCALE] && <span>{t("REQUIRED_FIELD")}</span>}
 
         <Controller
           name={FIELD_NAME.STORE_CATEGORY}
@@ -141,10 +144,12 @@ export default function NewStorePage() {
               placeholder={t("SELECT_COMPANY_CATEGORY")}
               label={t("COMPANY_CATEGORY_LABEL")}
               options={categoryOptions}
+              errorText={errors[FIELD_NAME.STORE_CATEGORY] && (
+                <ErrorText>{t("REQUIRED_FIELD")}</ErrorText>
+              )}
             />
           )}
         />
-        {errors[FIELD_NAME.STORE_CATEGORY] && <span>{t("REQUIRED_FIELD")}</span>}
 
         <div className='flex items-center gap-3 my-6'>
           <label className='text-sm'>

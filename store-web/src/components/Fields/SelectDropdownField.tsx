@@ -12,6 +12,7 @@ interface SelectDropdownFieldProps {
   value: string
   label: string
   name: string
+  errorText?: React.ReactNode
 }
 
 const SelectDropdownField: React.FC<SelectDropdownFieldProps> = ({
@@ -20,7 +21,8 @@ const SelectDropdownField: React.FC<SelectDropdownFieldProps> = ({
   onChange,
   value,
   label,
-  name
+  name,
+  errorText
 }) => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -73,6 +75,8 @@ const SelectDropdownField: React.FC<SelectDropdownFieldProps> = ({
             </div>
         )}
       </div>
+
+      {errorText}
     </div>
   )
 }

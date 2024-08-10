@@ -9,6 +9,7 @@ import { ServerError } from '@/types/common'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import ErrorText from '@/components/texts/ErrorText'
 
 const FIELD_NAME = {
   EMAIL: 'email',
@@ -85,9 +86,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
 
       {
         errors["root"] && (
-          <div className='font-light text-xs text-red-500'>
+          <ErrorText>
             {errors["root"].message}
-          </div>
+          </ErrorText>
         )
       }
 

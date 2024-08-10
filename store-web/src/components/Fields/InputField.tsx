@@ -4,6 +4,7 @@ type ButtonProps = {
   className?: string,
   label?: string,
   placeholder?: string,
+  errorText?: React.ReactNode
 } & React.ComponentPropsWithRef<'input'>;
 
 
@@ -14,6 +15,7 @@ const InputField = forwardRef<HTMLInputElement, ButtonProps>(
       label,
       placeholder,
       className,
+      errorText,
       ...props
     },
     ref
@@ -39,6 +41,8 @@ const InputField = forwardRef<HTMLInputElement, ButtonProps>(
           placeholder={placeholder}
           {...props}
         />
+
+        {errorText}
       </div>
     );
   }
