@@ -9,7 +9,7 @@ import (
 
 func GetInfoHandler(w http.ResponseWriter, r *http.Request) {
 	info := TransactionInfo{
-		TodayDate:               time.Now().Format("01-Aug-2024"),
+		TodayDate:               time.Now().Format("2 Jan 2006"),
 		TodayIncome:             432989,
 		TodayTotalTransaction:   123,
 		TotalMonthlyIncome:      999999999,
