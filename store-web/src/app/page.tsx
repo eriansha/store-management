@@ -1,8 +1,8 @@
 "use client"
 
+import ForgetPasswordForm from '@/components/forms/ForgetPasswordForm'
+import LoginForm from '@/components/forms/LoginForm'
 import { useState } from 'react'
-import LoginForm from './LoginForm'
-import ForgetPasswordForm from './ForgetPasswordForm'
 
 
 export default function Home() {

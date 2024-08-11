@@ -2,13 +2,13 @@
 
 import SearchField from '@/components/fields/SearchField'
 import { useEffect, useState } from 'react'
-import StoreList from './StoreList'
 import { Store } from '@/types/store'
 import useDebounce from '@/hooks/UseDebounce'
 import axios from 'axios'
 import { useAuth } from '@/provider/AuthProvider'
 import useTranslation from '@/hooks/UseTranslation'
 import Link from 'next/link'
+import StoreList from '@/components/lists/StoreList'
 
 
 export default function StorePage() {

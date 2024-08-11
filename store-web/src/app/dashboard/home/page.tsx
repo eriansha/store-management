@@ -1,12 +1,13 @@
 "use client"
 
 import IncomeCard from '@/components/cards/IncomeCard'
+import TotalStoreCard from '@/components/cards/TotalStoreCard'
 import useTranslation from '@/hooks/UseTranslation'
 import { useAuth } from '@/provider/AuthProvider'
 import { TransactionInfoResponse } from '@/types/transaction'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import TotalStoreCard from './TotalStoreCard'
+
 
 const defaultTransactionData: TransactionInfoResponse = {
   today_date: '',
