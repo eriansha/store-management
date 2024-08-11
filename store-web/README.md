@@ -22,20 +22,31 @@ This repository is builed with
 - 💨 Tailwind CSS 3 — A utility-first CSS framework packed with classes
 
 
-## Development
-Ensure the backend is already running when running the development server.
+## Installation
 
-Create `.env` and add these following variable
+1. Clone the repository:
+```
+git clone https://github.com/eriansha/store-management
+cd store-web
+```
+
+2. Install dependencies
+```
+npm install
+```
+
+3. Set up environment variables. Create `.env` and add these following variables
 ```
 // .env
 NEXT_PUBLIC_STORE_API_BASE_URL="http://localhost:8090/api"
 
 ```
 
+## Usage
 Run this command:
 ```bash
-npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. Ensure the backend has already run.
+
