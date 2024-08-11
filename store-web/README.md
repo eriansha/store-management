@@ -8,9 +8,10 @@ User facing web application to manage store
 <img width="360" alt="Screenshot 2024-08-11 at 09 22 37" src="https://github.com/user-attachments/assets/e352ce3d-aafe-4097-ac57-a25f9ea18f26">
 
 ## Feature
-- View transaction reports
-- View all stores
-- Create a new store
+- Login: Using email and password to login to the system
+- View transaction reports: User can view transaction summary e.g total transaction, total income, and total store at given period (today and a month)
+- View all stores: Display a list of stores
+- Create a new store: Create a new store
 
 ## Tech Stack
 This repository is builed with
@@ -21,6 +22,10 @@ This repository is builed with
 - 📋 React Hooks Form
 - 💨 Tailwind CSS 3 — A utility-first CSS framework packed with classes
 
+## Input and Output in UI:
+Add Product (Input): The UI allows users to add a new product by entering details like name, description, price, and SKU. This data is stored in the Products table.
+View Inventory (Output): The UI displays a list of products along with their stock levels, which are fetched from the Inventory table.
+Transaction Log (Output): Users can view a log of all transactions, showing the type of transaction (IN/OUT), the quantity involved, and the date. This is populated from the Transactions table.
 
 ## Installation
 
