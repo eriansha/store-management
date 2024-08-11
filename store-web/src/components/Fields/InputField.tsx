@@ -5,7 +5,7 @@ type ButtonProps = {
   label?: string,
   placeholder?: string,
   errorText?: React.ReactNode
-} & React.ComponentPropsWithRef<'input'>;
+} & React.ComponentPropsWithRef<'input'>
 
 
 const InputField = forwardRef<HTMLInputElement, ButtonProps>(
@@ -44,10 +44,10 @@ const InputField = forwardRef<HTMLInputElement, ButtonProps>(
 
         {errorText}
       </div>
-    );
+    )
   }
-);
+)
 
 InputField.displayName = "InputField"
 
-export default InputField;
+export default InputField

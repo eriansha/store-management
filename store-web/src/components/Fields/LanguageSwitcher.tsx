@@ -1,7 +1,7 @@
 import { useLanguage } from '@/provider/LanguageProvider'
 
 const LanguageSwitcher = () => {
-  const { language, changeLanguage } = useLanguage();
+  const { language, changeLanguage } = useLanguage()
 
   const handleChangeLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value

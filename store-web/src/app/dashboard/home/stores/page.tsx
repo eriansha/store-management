@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import SearchField from '@/components/fields/SearchField'
 import { useEffect, useState } from 'react'

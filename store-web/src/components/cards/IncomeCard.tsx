@@ -34,7 +34,7 @@ const IncomeCard: React.FC<IncomeProps> = ({
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default IncomeCard;
+export default IncomeCard

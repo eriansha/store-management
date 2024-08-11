@@ -24,8 +24,8 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
   const {t} = useTranslation()
   // const [serverError, setServerError] = useState<ServerError | undefined>()
-  const router = useRouter();
-  const { login } = useAuth();
+  const router = useRouter()
+  const { login } = useAuth()
   const {
     register,
     handleSubmit,
@@ -34,7 +34,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
       errors,
       isValid
     }
-  } = useForm({ mode: 'all' });
+  } = useForm({ mode: 'all' })
 
 
   const onSubmit = (data: any) => {
@@ -51,8 +51,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
     .then(function (response) {
       const data = response.data
       const { user } = data
-      login(user, data.access_token);
-      router.push('/dashboard/home');
+      login(user, data.access_token)
+      router.push('/dashboard/home')
     })
     .catch(function (error) {
       // TODO: show error message
@@ -66,7 +66,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
       } else {
         alert("Gagal melakukan login")
       }
-    });
+    })
   }
 
   return (
@@ -110,7 +110,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
         </span>
       </div>
     </form>
-  );
+  )
 }
 
-export default LoginForm;
+export default LoginForm

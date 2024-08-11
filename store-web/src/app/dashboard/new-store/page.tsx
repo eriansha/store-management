@@ -3,7 +3,7 @@
 import Button from '@/components/buttons/Button'
 import InputField from '@/components/fields/InputField'
 import axios from 'axios'
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form'
 import { useState } from 'react'
 import { useAuth } from '@/provider/AuthProvider'
 import { useRouter } from 'next/navigation'
@@ -64,7 +64,7 @@ export default function NewStorePage() {
 
   const { register, handleSubmit, control, formState: { errors, isValid } } = useForm({
     mode: 'all'
-  });
+  })
 
   const handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event?.target.checked
@@ -85,7 +85,7 @@ export default function NewStorePage() {
       }
     )
     .then(function () {
-      alert("Sukses membuat store baru");
+      alert("Sukses membuat store baru")
       router.push('/dashboard/home/stores')
     })
     .catch(function (error) {
@@ -93,9 +93,9 @@ export default function NewStorePage() {
       if (error.response.status === 401) {
         logout()
       } else {
-        alert("Gagal membuat store baru");
+        alert("Gagal membuat store baru")
       }
-    });
+    })
   }
 
   return (

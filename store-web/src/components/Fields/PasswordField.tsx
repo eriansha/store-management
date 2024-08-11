@@ -1,11 +1,11 @@
 import { forwardRef, useId, useState } from 'react'
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
 
 type ButtonProps = {
   className?: string,
   label?: string,
   placeholder?: string,
-} & React.ComponentPropsWithRef<'input'>;
+} & React.ComponentPropsWithRef<'input'>
 
 
 const PasswordField = forwardRef<HTMLInputElement, ButtonProps>(
@@ -61,10 +61,10 @@ const PasswordField = forwardRef<HTMLInputElement, ButtonProps>(
           {...props}
         />
       </div>
-    );
+    )
   }
-);
+)
 
 PasswordField.displayName = "PasswordField"
 
-export default PasswordField;
+export default PasswordField

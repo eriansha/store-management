@@ -25,10 +25,10 @@ const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
           {...props}
         />
       </div>
-    );
+    )
   }
-);
+)
 
 SearchField.displayName = "InputField"
 
-export default SearchField;
+export default SearchField

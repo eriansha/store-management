@@ -6,7 +6,7 @@ type ButtonProps = {
   isLoading?: boolean,
   disabled?: boolean,
   pill?: boolean,
-} & React.ComponentPropsWithRef<'button'>;
+} & React.ComponentPropsWithRef<'button'>
 
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -21,7 +21,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const disabled = isLoading || buttonDisabled;
+    const disabled = isLoading || buttonDisabled
     const ariaLabel = typeof children !== "string" ? "button label" : children
 
     return (
@@ -47,10 +47,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {children}
       </button>
-    );
+    )
   }
-);
+)
 
 Button.displayName = "Button"
 
-export default Button;
+export default Button

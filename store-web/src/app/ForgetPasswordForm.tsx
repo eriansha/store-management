@@ -19,7 +19,7 @@ const ForgetPasswordForm: React.FC<ForgetPasswordFormProps> = ({ toggleForgetPas
     formState: {
       isValid
     }
-  } = useForm({ mode: 'all' });
+  } = useForm({ mode: 'all' })
 
   const onSubmit = () => {
     // TODO
