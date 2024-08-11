@@ -1,21 +1,17 @@
 "use client"
 
-import useTranslation from '@/hooks/UseTranslation'
-import { ChevronLeftIcon } from '@heroicons/react/24/solid'
-import { useRouter } from 'next/navigation'
+import LanguageSwitcher from '../fields/LanguageSwitcher'
 
-export default function Header() {
-  const { t } = useTranslation()
-  const router = useRouter()
-
+const Header: React.FC<{ children: React.ReactNode}> = ({ children }) => {
   return (
-    <div className='bg-white sticky top-0 flex gap-3 shadow-sm w-full py-4 px-4'>
-      <ChevronLeftIcon
-        className='size-6 text-black-600 cursor-pointer'
-        onClick={() => router.back()}
-      />
+    <div className='bg-white sticky top-0 flex gap-3 justify-between shadow-sm w-full py-4 px-4'>
+      {children}
 
-      <h2 className='font-semibold'>{t("ADD_NEW_STORE")}</h2>
+      <div className='ml-auto'>
+        <LanguageSwitcher/>
+      </div>
     </div>
   )
 }
+
+export default Header

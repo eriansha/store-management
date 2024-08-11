@@ -1,6 +1,6 @@
 "use client"
 
-import LanguageSwitcher from '@/components/fields/LanguageSwitcher'
+import Header from '@/components/header/Header'
 import BottomNavigation from '@/components/nav/BottomNavigation'
 import Sidebar from '@/components/nav/Sidebar'
 
@@ -18,12 +18,9 @@ export default function DashboardLayout({
       </div>
 
       <main className='lg:ml-64'>
-        <div className='bg-white sticky top-0 flex gap-3 justify-between shadow-sm w-full py-4 px-4'>
+        <Header>
           <h2 className='lg:hidden font-bold text-violet-600'>Store Dashboard</h2>
-          <div className='ml-auto'>
-            <LanguageSwitcher/>
-          </div>
-        </div>
+        </Header>
 
         <div className='px-4 lg:py-2'>
           {children}
