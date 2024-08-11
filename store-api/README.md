@@ -14,6 +14,13 @@ REST API for store-web
 - `merchants` table refers to the entity or business that owns or operates one or more stores. The merchant represents the broader business entity
 - `stores` table represents stores information, individual locations or outlets under that merchant's control.
 
+## Tech Stack
+- 🐨 Golang v1.22.3
+- 📋 MySQL
+- 🦍 Gorilla Mux v3.2, implements a request router and dispatcher for matching incoming requests to their respective handler.
+- 🔒 Golang Crypto, to implement password hashing
+- 🔑 Golang JWT
+
 ## Prerequisites
 Before you begin, ensure you have the following installed:
 
