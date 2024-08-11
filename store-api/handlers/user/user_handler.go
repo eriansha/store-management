@@ -15,8 +15,8 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var repo *userRepo.UserRepository
-var mRepo *merchantRepo.MerchantRepository
+var newUserRepo *userRepo.UserRepository
+var newMerchantRepo *merchantRepo.MerchantRepository
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO: create db abstraction
@@ -37,8 +37,8 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	repo = userRepo.NewUserRepository(db)
-	mRepo = merchantRepo.NewMerchantRepository(db)
+	newUserRepo = userRepo.NewUserRepository(db)
+	newMerchantRepo = merchantRepo.NewMerchantRepository(db)
 	var user *userRepo.User
 
 	user, err = validateLogin(userRequest.Email, userRequest.Password)
@@ -51,7 +51,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	merchant, err := mRepo.GetMerchant(user.ID)
+	merchant, err := newMerchantRepo.GetMerchant(user.ID)
 	if err != nil {
 		customErr := common.NewCustomError("Internal server error", http.StatusInternalServerError, "Merchant is not identified")
 		common.SendErrorResponse(w, customErr)
@@ -98,7 +98,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 // validateLogin checks if the username and password are valid
 func validateLogin(email string, password string) (*userRepo.User, error) {
-	storedUser, err := repo.GetUser(email)
+	storedUser, err := newUserRepo.GetUser(email)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return nil, common.NewCustomError(

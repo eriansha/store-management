@@ -11,7 +11,7 @@ import (
 	"store-api/utils"
 )
 
-var repo *storeRepo.StoreRepository
+var newStoreRepo *storeRepo.StoreRepository
 
 func GetStoresHandler(w http.ResponseWriter, r *http.Request) {
 	merchantID, ok := r.Context().Value(user.MerchantIDKey).(int64)
@@ -28,9 +28,9 @@ func GetStoresHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err.Error())
 	}
 
-	repo = storeRepo.NewStoreRepository(db)
+	newStoreRepo = storeRepo.NewStoreRepository(db)
 	searchParam := r.URL.Query().Get("search")
-	stores, err := repo.GetStores(merchantID, searchParam)
+	stores, err := newStoreRepo.GetStores(merchantID, searchParam)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -72,8 +72,8 @@ func AddStoreHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	repo = storeRepo.NewStoreRepository(db)
-	err = repo.Add(merchantID, store.CompanyName, store.BrandName, store.Scale, store.Category)
+	newStoreRepo = storeRepo.NewStoreRepository(db)
+	err = newStoreRepo.Add(merchantID, store.CompanyName, store.BrandName, store.Scale, store.Category)
 	if err != nil {
 		http.Error(w, "Failed to create user", http.StatusInternalServerError)
 		return
