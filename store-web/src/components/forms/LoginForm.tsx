@@ -10,6 +10,7 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import ErrorText from '@/components/texts/ErrorText'
+import { useState } from 'react'
 
 const FIELD_NAME = {
   EMAIL: 'email',
@@ -22,6 +23,7 @@ interface LoginFormProps {
 
 
 const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
+  const [isLoading, setIsLoading] = useState(false)
   const {t} = useTranslation()
   // const [serverError, setServerError] = useState<ServerError | undefined>()
   const router = useRouter()
@@ -36,8 +38,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
     }
   } = useForm({ mode: 'all' })
 
+  const buttonDisabled = !isValid || isLoading
+
 
   const onSubmit = (data: any) => {
+    setIsLoading(true)
     axios.post(`${process.env.NEXT_PUBLIC_STORE_API_BASE_URL}/login`,
       data,
       {
@@ -66,6 +71,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
       } else {
         alert("Gagal melakukan login")
       }
+
+      setIsLoading(false)
     })
   }
 
@@ -96,7 +103,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ toggleForgetPassword }) => {
       <Button
         type='submit'
         className='mt-3'
-        disabled={!isValid}
+        disabled={buttonDisabled}
       >
         {t("LOG_IN")}
       </Button>
