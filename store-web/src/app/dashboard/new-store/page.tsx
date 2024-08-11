@@ -61,10 +61,13 @@ export default function NewStorePage() {
   const { token, logout } = useAuth()
   const router = useRouter()
   const [termAccpeted, setTermAccepted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const { register, handleSubmit, control, formState: { errors, isValid } } = useForm({
     mode: 'all'
   })
+
+  const buttonDisabled = !(isValid && Boolean(termAccpeted)) || isLoading
 
   const handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event?.target.checked
@@ -73,6 +76,7 @@ export default function NewStorePage() {
   }
 
   const onSubmit = (data: any) => {
+    setIsLoading(true)
     axios.post(`${process.env.NEXT_PUBLIC_STORE_API_BASE_URL}/stores`,
       data,
       {
@@ -90,11 +94,13 @@ export default function NewStorePage() {
     })
     .catch(function (error) {
       // TODO: use proper token refresh mechanism
-      if (error.response.status === 401) {
+      if (error?.response?.status === 401) {
         logout()
       } else {
         alert("Gagal membuat store baru")
       }
+
+      setIsLoading(false)
     })
   }
 
@@ -170,7 +176,7 @@ export default function NewStorePage() {
           pill
           className='mb-4'
           type="submit"
-          disabled={!(isValid && Boolean(termAccpeted))}
+          disabled={buttonDisabled}
         >
           {"Submit"}
         </Button>
