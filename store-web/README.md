@@ -22,11 +22,6 @@ This repository is builed with
 - 📋 React Hooks Form
 - 💨 Tailwind CSS 3 — A utility-first CSS framework packed with classes
 
-## Input and Output in UI:
-Add Product (Input): The UI allows users to add a new product by entering details like name, description, price, and SKU. This data is stored in the Products table.
-View Inventory (Output): The UI displays a list of products along with their stock levels, which are fetched from the Inventory table.
-Transaction Log (Output): Users can view a log of all transactions, showing the type of transaction (IN/OUT), the quantity involved, and the date. This is populated from the Transactions table.
-
 ## Installation
 
 1. Clone the repository:
