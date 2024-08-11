@@ -36,7 +36,7 @@ export default function DashboardPage() {
         logout()
       }
     })
-  }, [token])
+  }, [token, logout])
 
   return (
     <main>

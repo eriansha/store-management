@@ -35,7 +35,7 @@ export default function StorePage() {
       }
     })
     .finally(() => setIsLoading(false))
-  }, [debouncedQuery, token])
+  }, [debouncedQuery, token, logout])
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value)
